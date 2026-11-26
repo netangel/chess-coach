@@ -1,0 +1,56 @@
+# Shared skill taxonomy (DESIGN.md §9). Keys are referenced as "<group>.<leaf>".
+# tactics.* leaves reuse Lichess puzzle theme slugs, so they map to https://lichess.org/training/<theme>.
+# Optional per-leaf fields: lichess_theme, lichess_url, resources (Stage 2: [{book, chapter, pages, lang}]).
+
+tactics:
+  fork: {lichess_theme: fork}
+  pin: {lichess_theme: pin}
+  skewer: {lichess_theme: skewer}
+  discoveredAttack: {lichess_theme: discoveredAttack}
+  doubleCheck: {lichess_theme: doubleCheck}
+  hangingPiece: {lichess_theme: hangingPiece}
+  backRankMate: {lichess_theme: backRankMate}
+  mateIn1: {lichess_theme: mateIn1}
+  mateIn2: {lichess_theme: mateIn2}
+  mateIn3: {lichess_theme: mateIn3}
+  deflection: {lichess_theme: deflection}
+  attraction: {lichess_theme: attraction}
+  sacrifice: {lichess_theme: sacrifice}
+  zugzwang: {lichess_theme: zugzwang}
+  other: {}
+
+calculation:
+  defensive-resources: {lichess_theme: defensiveMove}
+  candidate-moves: {}
+  visualization: {}
+
+strategy:
+  pawn-structure: {}
+  piece-activity: {}
+  weak-squares: {}
+  open-files: {}
+  prophylaxis: {}
+
+middlegame:
+  conversion: {lichess_theme: advantage}
+  defence: {lichess_theme: equality}
+  attack-on-king: {lichess_theme: kingsideAttack}
+  time-management: {}
+
+endgame:
+  pawn: {lichess_theme: pawnEndgame}
+  rook: {lichess_theme: rookEndgame}
+  minor-piece: {lichess_theme: bishopEndgame}
+  queen: {lichess_theme: queenEndgame}
+  theoretical-positions: {lichess_url: "https://lichess.org/practice"}
+  technique: {lichess_theme: endgame}
+
+opening:
+  repertoire-white: {}
+  repertoire-black: {}
+  early-deviations: {}
+
+psychology:
+  tilt: {}
+  rushing: {}
+  passivity: {}
