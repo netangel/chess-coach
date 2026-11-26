@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "games": {
+    "lastCreatedAt": 1741887517247,
+    "count": 21
+  },
+  "puzzles": {
+    "lastDate": 1737549944958,
+    "count": 27
+  },
+  "ratingsFetchedAt": 1795731041162,
+  "lastSyncAt": 1795731041162,
+  "token": {
+    "expiresAt": null,
+    "scopes": []
+  }
+}
