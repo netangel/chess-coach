@@ -27,6 +27,10 @@ Stockfish is needed from milestone M2 on: `brew install stockfish` (macOS).
 uv run python -m pipeline sync            # games + puzzles + ratings, incremental
 uv run python -m pipeline sync --only games
 uv run python -m pipeline snapshot        # weekly puzzle/storm dashboard snapshot
+uv run python -m pipeline analyze         # Stockfish analysis of new games (cached per game)
+uv run python -m pipeline mistakes        # critical positions -> data/mistakes.jsonl
+uv run python -m pipeline compare <gameId>  # our move labels vs Lichess server analysis
+uv run python -m pipeline all             # sync + analyze + mistakes
 uv run pytest && uv run ruff check .
 ```
 
@@ -36,7 +40,8 @@ uv run pytest && uv run ruff check .
 |---|---|
 | M0 Repo skeleton | done |
 | M1 Sync | done |
-| M2 Analysis + mistakes | next |
+| M2 Analysis + mistakes | done |
+| M3 Metrics + diagnosis | next |
 
 Known limitation: the game cursor is the newest `createdAt`. A long correspondence game created
 before the cursor but finished after it would be missed. Bullet/blitz/rapid/classical are unaffected.

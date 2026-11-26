@@ -198,7 +198,7 @@ dashboard:
 {"id": "abcd1234-23", "gameId": "abcd1234", "ply": 23,
  "fen": "…", "playerColor": "white", "played": "Nxe5", "best": "d4", "pv": ["d4","exd4","Nxd4"],
  "class": "mistake", "winDrop": 25.1, "phase": "middlegame", "timePressure": false,
- "tags": ["tactics.hanging-piece"], "createdAt": 1764163200000,
+ "tags": ["tactics.hangingPiece"], "createdAt": 1764163200000,
  "review": {"box": 0, "due": "2026-11-27", "attempts": 0, "lastResult": null, "chapterId": null}}
 ```
 
@@ -227,11 +227,11 @@ dashboard:
 ### 7.2 Analysis (`analyze.py`, `mistakes.py`)
 - For each new game in `analysis.only_perfs` without a cache file (or with stale engine version): evaluate every position at fixed `nodes` (deterministic-ish, comparable across runs). Reuse Lichess `evals` when present? No — always own engine, for consistent metrics; Lichess evals kept only as a cross-check.
 - **Win% conversion** (Lichess formula): `win = 50 + 50 * (2 / (1 + exp(-0.00368208 * cp)) - 1)`; mate scores map to ±100 (or clamp cp to ±1000).
-- **Move classes** by win% drop for the mover: inaccuracy ≥ 10, mistake ≥ 20, blunder ≥ 30.
-- **Accuracy** per move: Lichess-style `103.1668 * exp(-0.04354 * winDrop) - 3.1669`, clamped 0–100; game accuracy = mean (harmonic/volatility weighting optional later).
+- **Move classes** by win% drop for the mover: inaccuracy ≥ 5, mistake ≥ 10, blunder ≥ 15 (configurable). *Changed 2026-11-26 from 10/20/30:* 5/10/15 is Lichess's own cut (0.1/0.2/0.3 on the ±1 winning-chances scale) and reproduced 97% of Lichess judgments on our games vs 81%.
+- **Accuracy** per move: Lichess-style `103.1668 * exp(-0.04354 * winDrop) - 3.1669` (+1, clamped 0–100); game accuracy = Lichess method: average of the volatility-weighted mean (sliding-window std-dev of win%) and the harmonic mean of move accuracies. Lands within ~0–9 points of Lichess on our games.
 - **Phase**: Lichess `division` when present; fallback heuristic on non-pawn material.
 - **Time pressure**: `clockLeft < time_pressure_fraction * clockInitial`.
-- **Critical moments**: player's moves classed mistake/blunder, plus *missed wins* (best move would have raised win% by ≥ 20 when player was not already winning) → `mistakes.jsonl` (FEN before the move, best line).
+- **Critical moments**: player's moves classed mistake/blunder, plus *missed wins* (the opponent's last move raised the player's win% by ≥ 20 to ≥ 65 from < 60, and the player's reply dropped it back below 60) → `mistakes.jsonl` (FEN before the move, best line). Skipped when already lost (win before ≤ 15) or still clearly winning (win after ≥ 80).
 - **Tagging (heuristic, v1)**: derive simple motifs from the best line with python-chess: hanging piece (moved/left piece capturable for free), fork (best move attacks ≥ 2 higher-value pieces), missed mate (mate in ≤ 3 available), back-rank, conversion failure (win ≥ 75 → result not a win), defence failure. Unknown → `tactics.other`. Precision over recall; tags are hints for diagnosis, not ground truth.
 
 ### 7.3 Spaced repetition (`review.py`, `publish_study.py`)

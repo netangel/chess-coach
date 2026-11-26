@@ -3,8 +3,8 @@ lichess:
   username: netangel
   review_study_id: null       # TODO (M5): create a private study on Lichess once, paste its 8-char ID
 training:
-  main_perf: classical        # rapid | classical | blitz
-  tracked_perfs: [classical, rapid, blitz, correspondence]
+  main_perf: rapid            # rapid 15+10 (decided 2026-11-26)
+  tracked_perfs: [rapid, classical, blitz, correspondence]
   budget:
     daily_minutes: 20
     games_per_week: 3
@@ -24,6 +24,7 @@ analysis:
   min_plies: 20                    # skip abandoned/aborted games
   since: null                      # null = whole history (baseline decision 2026-11-26)
   time_pressure_fraction: 0.10     # remaining clock < 10% of initial time
+  thresholds: [5, 10, 15]          # win% drop: inaccuracy / mistake / blunder (= Lichess)
 review:
   boxes_days: [1, 3, 7, 14, 30]    # Leitner intervals
   max_due_per_day: 5

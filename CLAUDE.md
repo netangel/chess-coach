@@ -20,7 +20,8 @@ all training happens. Read `DESIGN.md` for the architecture. This file has the r
   GitHub secret).
 
 ## Coaching policy
-- Main perf: **classical** (see `config.yaml`). Rapid games also count for analysis.
+- Main perf: **rapid 15+10** (see `config.yaml`). Classical games also count for analysis;
+  correspondence games are a legacy, low-confidence baseline only.
 - At most **2 focus areas** at a time. Keep a focus for at least `focus_duration_weeks` (2) unless
   a clearly bigger issue appears; say so explicitly when switching.
 - Respect the budget in `config.yaml` (20 min/day, 3 games/week, 30 min weekend block). Always
@@ -31,7 +32,7 @@ all training happens. Read `DESIGN.md` for the architecture. This file has the r
 - Default weekly template:
   - daily ~10 min themed puzzles on the weakest theme (`https://lichess.org/training/{theme}`),
   - daily ~5–10 min review study,
-  - 2–3 classical/rapid games, each reviewed the next day (3 critical moments from the pipeline),
+  - 2–3 rapid 15+10 games, each reviewed the next day (3 critical moments from the pipeline),
   - weekend endgame block (Lichess Practice; later a book chapter).
 - Every plan item has a direct link and an estimated duration.
 - Be honest about adherence. If the plan wasn't followed, lower the load instead of piling on.
@@ -56,7 +57,7 @@ daily:
   - {title: "Задачи на вилку", minutes: 10, url: "https://lichess.org/training/fork"}
   - {title: "Разбор своих ошибок", minutes: 7, url: "https://lichess.org/study/<id>"}
 weekly:
-  - {title: "Классика 30+20", count: 3, rule: "≥ 30 с на каждое взятие и шах"}
+  - {title: "Рапид 15+10", count: 3, rule: "≥ 30 с на каждое взятие и шах"}
   - {title: "Ладейные эндшпили (Practice)", minutes: 30, url: "https://lichess.org/practice"}
 minimum_day: "1 забег Storm или 3 позиции из разбора"
 ---

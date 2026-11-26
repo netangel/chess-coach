@@ -1,4 +1,4 @@
-"""CLI: python -m pipeline sync|snapshot|analyze|metrics|diagnose|study|all"""
+"""CLI: python -m pipeline sync|snapshot|analyze|mistakes|compare|metrics|diagnose|study|all"""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import argparse
 import logging
 import sys
 
-from . import fetch
+from . import analyze, fetch, mistakes
 from .config import load_config, load_token
 from .lichess_client import LichessClient
 from .state import load_state, now_ms, save_state
 
 SOURCES = ("games", "puzzles", "ratings")
-NOT_YET = {"analyze": "M2", "mistakes": "M2", "metrics": "M3", "diagnose": "M3", "study": "M5"}
+NOT_YET = {"metrics": "M3", "diagnose": "M3", "study": "M5"}
 
 
 def cmd_sync(only: list[str]) -> int:
@@ -41,6 +41,21 @@ def cmd_snapshot() -> int:
     return 0
 
 
+def cmd_analyze(game_ids, force, limit, threads) -> int:
+    cfg = load_config()
+    if threads:
+        cfg.engine.threads = threads
+    stats = analyze.run(cfg, game_ids=game_ids or None, force=force, limit=limit)
+    print("analyze:", ", ".join(f"{k} {v}" for k, v in sorted(stats.items())))
+    return 0
+
+
+def cmd_mistakes() -> int:
+    stats = mistakes.run(load_config())
+    print("mistakes:", ", ".join(f"{k} {v}" for k, v in sorted(stats.items())))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline")
     p.add_argument("-v", "--verbose", action="store_true")
@@ -48,6 +63,14 @@ def main(argv: list[str] | None = None) -> int:
     s = sub.add_parser("sync", help="incremental sync of games, puzzles, ratings")
     s.add_argument("--only", default=",".join(SOURCES), help="comma list of " + ",".join(SOURCES))
     sub.add_parser("snapshot", help="weekly puzzle + storm dashboard snapshot")
+    a = sub.add_parser("analyze", help="Stockfish analysis of eligible games (cached)")
+    a.add_argument("--game", action="append", default=[], help="only this game id (repeatable)")
+    a.add_argument("--force", action="store_true", help="re-run the engine even if cached")
+    a.add_argument("--limit", type=int, help="max games to run through the engine")
+    a.add_argument("--threads", type=int, help="override engine.threads for this run")
+    sub.add_parser("mistakes", help="extract critical positions into data/mistakes.jsonl")
+    c = sub.add_parser("compare", help="our analysis vs Lichess server analysis for a game")
+    c.add_argument("game_id")
     for name in NOT_YET:
         sub.add_parser(name)
     sub.add_parser("all", help="run every implemented nightly step")
@@ -66,8 +89,15 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_sync(only)
     if args.cmd == "snapshot":
         return cmd_snapshot()
+    if args.cmd == "analyze":
+        return cmd_analyze(args.game, args.force, args.limit, args.threads)
+    if args.cmd == "mistakes":
+        return cmd_mistakes()
+    if args.cmd == "compare":
+        print(analyze.compare_report(args.game_id, load_config()))
+        return 0
     if args.cmd == "all":
-        return cmd_sync(list(SOURCES))
+        return cmd_sync(list(SOURCES)) or cmd_analyze([], False, None, None) or cmd_mistakes()
     print(f"{args.cmd}: not implemented yet (milestone {NOT_YET[args.cmd]})", file=sys.stderr)
     return 2
 

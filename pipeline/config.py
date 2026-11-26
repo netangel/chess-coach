@@ -45,6 +45,7 @@ class AnalysisCfg(BaseModel):
     min_plies: int = 20
     since: int | None = None
     time_pressure_fraction: float = 0.10
+    thresholds: tuple[float, float, float] = (5.0, 10.0, 15.0)
 
 
 class ReviewCfg(BaseModel):
