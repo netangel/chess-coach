@@ -13,5 +13,46 @@
   "token": {
     "expiresAt": null,
     "scopes": []
+  },
+  "study": {
+    "studyId": "ubCwtsu5",
+    "chapters": {
+      "dJkzTqwS-37": "JxLUNDfM",
+      "dJkzTqwS-35": "jbNuTuv1",
+      "ZWOrYAzU-48": "ycfabAJH",
+      "2xJaACP0-20": "Xa5AH4dN",
+      "2xJaACP0-78": "NjGc1LtL",
+      "dJkzTqwS-55": "ZLysrBFC",
+      "dJkzTqwS-13": "GNAjpyDb",
+      "2xJaACP0-26": "7RrtJq5k",
+      "2xJaACP0-86": "42Sp4zlE",
+      "C2WSRLPq-23": "zCaTQZRh",
+      "2xJaACP0-82": "7Ip7rZrU",
+      "2xJaACP0-14": "M0dbWUAo",
+      "2xJaACP0-18": "ZbFpQTHP",
+      "ebwcWDqt-17": "x0TRbAa7",
+      "ewr3G02F-21": "ziqDkD83",
+      "eQWF1vi7-33": "4h0W7oVg",
+      "2xJaACP0-16": "XtGGQy1Z",
+      "2xJaACP0-24": "zxwvq6US",
+      "ku4NFyRS-14": "06pWU98x",
+      "ewr3G02F-15": "BXPNotPR",
+      "2xJaACP0-84": "0cGvN4ft",
+      "dJkzTqwS-83": "IssHbonG",
+      "tMyVlIkn-18": "V4zjWMpv",
+      "dJkzTqwS-87": "YJtoIQJ6",
+      "ebwcWDqt-29": "eNKGmjLt",
+      "qHsao7Fm-32": "TEwYnMRJ",
+      "eQWF1vi7-25": "lmRVd2fs",
+      "2xJaACP0-64": "TQ4v2Zbm",
+      "eQWF1vi7-27": "w02sloZI",
+      "eQWF1vi7-29": "tRBazC7D",
+      "2xJaACP0-30": "0CfiDW4C",
+      "dJkzTqwS-17": "qAMRTWBv",
+      "qHsao7Fm-26": "jLMRy2XR",
+      "qHsao7Fm-38": "FGjDMu5P",
+      "U5WpHbrN-4": "IstMlVDT"
+    },
+    "publishedAt": 1795771007790
   }
 }

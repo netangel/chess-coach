@@ -1,7 +1,7 @@
 # chess-coach user settings. See DESIGN.md §5.
 lichess:
   username: netangel
-  review_study_id: null       # TODO (M5): create a private study on Lichess once, paste its 8-char ID
+  review_study_id: ubCwtsu5       # private review study, created by `study --init` (2026-11-27)
 training:
   main_perf: rapid            # rapid 15+10 (decided 2026-11-26)
   tracked_perfs: [rapid, classical, blitz, correspondence]

@@ -32,7 +32,9 @@ uv run python -m pipeline mistakes        # critical positions -> data/mistakes.
 uv run python -m pipeline compare <gameId>  # our move labels vs Lichess server analysis
 uv run python -m pipeline metrics         # weekly + rolling aggregates -> data/derived/
 uv run python -m pipeline diagnose        # ranked weaknesses -> data/derived/diagnosis.json
-uv run python -m pipeline all             # sync + analyze + mistakes + metrics
+uv run python -m pipeline study --dry-run # print review-study PGN; without the flag: publish
+uv run python -m pipeline checkin render  # weekly check-in issue body
+uv run python -m pipeline all             # sync + analyze + mistakes + metrics + study
 uv run pytest && uv run ruff check .
 ```
 
@@ -43,6 +45,9 @@ uv run pytest && uv run ruff check .
 - Both use the official Stockfish 19 binary (SHA-256 pinned, cached) and the `LICHESS_TOKEN`
   repo secret, share the `pipeline` concurrency group, and can be started by hand from the
   Actions tab ("Run workflow"; untick *push* for a dry run that only logs the commit).
+- `weekly.yml` also opens a **check-in issue** listing the week's review positions. Tick
+  «решил верно» or «ошибся» per position and close the issue: `checkin.yml` records the
+  results (Leitner boxes) and updates the study. Untouched positions come back again.
 - After the bot is live, only Actions commits `data/`.
 
 ## Status
@@ -54,7 +59,8 @@ uv run pytest && uv run ruff check .
 | M2 Analysis + mistakes | done |
 | M3 Metrics + diagnosis | done ([baseline report](journal/baseline.md)) |
 | M4 Automation | done (runs once merged to `main`) |
-| M5 Review study | next |
+| M5 Review study | done ([study](https://lichess.org/study/ubCwtsu5), weekly check-in issue) |
+| M6 Dashboard | next |
 
 Known limitation: the game cursor is the newest `createdAt`. A long correspondence game created
 before the cursor but finished after it would be missed. Bullet/blitz/rapid/classical are unaffected.

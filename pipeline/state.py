@@ -29,6 +29,12 @@ class TokenState(BaseModel):
     scopes: list[str] = Field(default_factory=list)
 
 
+class StudyState(BaseModel):
+    studyId: str | None = None
+    chapters: dict[str, str] = Field(default_factory=dict)  # mistake id -> chapter id
+    publishedAt: int | None = None
+
+
 class State(BaseModel):
     schemaVersion: int = 1
     games: GamesState = Field(default_factory=GamesState)
@@ -36,6 +42,7 @@ class State(BaseModel):
     ratingsFetchedAt: int | None = None
     lastSyncAt: int | None = None
     token: TokenState = Field(default_factory=TokenState)
+    study: StudyState = Field(default_factory=StudyState)
 
 
 def load_state(path: Path = STATE_PATH) -> State:

@@ -5,14 +5,15 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
+from datetime import UTC, datetime
+from pathlib import Path
 
-from . import analyze, diagnose, fetch, metrics, mistakes
+from . import analyze, checkin, diagnose, fetch, metrics, mistakes, publish_study
 from .config import load_config, load_token
 from .lichess_client import LichessClient
 from .state import load_state, now_ms, save_state
 
 SOURCES = ("games", "puzzles", "ratings")
-NOT_YET = {"study": "M5"}
 
 
 def cmd_sync(only: list[str]) -> int:
@@ -70,6 +71,50 @@ def cmd_diagnose() -> int:
     return 0
 
 
+def today():
+    return datetime.now(UTC).date()
+
+
+def cmd_study(dry_run: bool, init: bool, force: bool) -> int:
+    cfg = load_config()
+    state = load_state()
+    token = load_token()
+    if not dry_run and not token:
+        print("study: skipped (no LICHESS_TOKEN)")
+        return 0
+    with LichessClient(token) as client:
+        if init:
+            if cfg.lichess.review_study_id:
+                print(f"study: already configured ({cfg.lichess.review_study_id})")
+                return 0
+            study_id = publish_study.create_study(client)
+            publish_study.save_study_id(study_id)
+            print(f"study: created {publish_study.study_url(study_id)} and saved it to config.yaml")
+            cfg = load_config()
+        if not dry_run and not cfg.lichess.review_study_id:
+            print("study: skipped (lichess.review_study_id not set; run `study --init`)")
+            return 0
+        res = publish_study.publish(client, cfg, state, today(), dry_run=dry_run, force=force)
+    if not dry_run:
+        save_state(state)
+    print("study:", ", ".join(f"{k} {v}" for k, v in res.items()))
+    return 0
+
+
+def cmd_checkin(action: str, issue: int | None, body_file: str | None) -> int:
+    cfg = load_config()
+    if action == "render":
+        sys.stdout.write(checkin.render(cfg, load_state(), today()))
+        return 0
+    if issue is None or body_file is None:
+        print("checkin apply needs --issue and --body-file", file=sys.stderr)
+        return 2
+    body = Path(body_file).read_text(encoding="utf-8")
+    res = checkin.apply(body, issue, cfg, today())
+    print("checkin:", ", ".join(f"{k} {v}" for k, v in res.items()))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline")
     p.add_argument("-v", "--verbose", action="store_true")
@@ -87,8 +132,14 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("diagnose", help="ranked weaknesses into data/derived/diagnosis.json")
     c = sub.add_parser("compare", help="our analysis vs Lichess server analysis for a game")
     c.add_argument("game_id")
-    for name in NOT_YET:
-        sub.add_parser(name)
+    st = sub.add_parser("study", help="publish due review positions to the Lichess study")
+    st.add_argument("--dry-run", action="store_true", help="print the PGN, no API writes")
+    st.add_argument("--init", action="store_true", help="create the private study if not set")
+    st.add_argument("--force", action="store_true", help="rebuild even if unchanged")
+    ci = sub.add_parser("checkin", help="weekly review check-in issue")
+    ci.add_argument("action", choices=["render", "apply"])
+    ci.add_argument("--issue", type=int)
+    ci.add_argument("--body-file")
     sub.add_parser("all", help="run every implemented nightly step")
     args = p.parse_args(argv)
 
@@ -113,6 +164,10 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_metrics()
     if args.cmd == "diagnose":
         return cmd_diagnose()
+    if args.cmd == "study":
+        return cmd_study(args.dry_run, args.init, args.force)
+    if args.cmd == "checkin":
+        return cmd_checkin(args.action, args.issue, args.body_file)
     if args.cmd == "compare":
         print(analyze.compare_report(args.game_id, load_config()))
         return 0
@@ -122,8 +177,9 @@ def main(argv: list[str] | None = None) -> int:
             or cmd_analyze([], False, None, None)
             or cmd_mistakes()
             or cmd_metrics()
+            or cmd_study(False, False, False)
         )
-    print(f"{args.cmd}: not implemented yet (milestone {NOT_YET[args.cmd]})", file=sys.stderr)
+    p.error(f"unknown command {args.cmd}")
     return 2
 
 

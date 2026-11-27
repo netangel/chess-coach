@@ -237,6 +237,7 @@ dashboard:
 ### 7.3 Spaced repetition (`review.py`, `publish_study.py`)
 - Leitner boxes with intervals from config; new positions enter box 0 (due tomorrow).
 - Nightly: select due positions (≤ `max_due_per_day` × days until next run, ordered by `winDrop`), rebuild the review study: delete old chapters, import due positions as PGN chapters (`[FEN]`/`[SetUp]` headers, orientation = player colour, comment with game link and "find the best move"; solution as a variation hidden behind a comment or as a gamebook-style move).
+- *As built:* the study holds positions due within the next 7 days (≤ `max_due_per_day` × 7), one chapter per position in **gamebook** mode (find the engine's best move; the game move is a commented side line), imported one call per chapter so name and orientation are exact. Updates are incremental (kept positions keep their chapter ID, so links in the open check-in issue stay valid). The study is created by `study --init` (private; `shareable` must not be `nobody`, or even the owner cannot export it, and export is how chapter IDs are listed).
 - **Result feedback** (Lichess does not expose study practice results):
   v1 = weekly check-in **GitHub Issue** opened by `weekly.yml`, listing the week's positions as checkboxes ("solved" ticked = correct). On issue close, a workflow parses it into `reviews.jsonl`; correct → box+1, wrong → box 0. Unanswered = treated as not attempted (stay in box, re-due).
   Alternative to evaluate: reporting results in a Claude session, which writes `reviews.jsonl`.

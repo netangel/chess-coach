@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: pipeline
@@ -39,3 +40,18 @@ jobs:
           .github/scripts/commit-data.sh
           "data: weekly $(date -u +%G-W%V)"
           "${{ github.event_name == 'schedule' || inputs.push }}"
+
+      - name: Open the weekly check-in issue
+        if: github.event_name == 'schedule' || inputs.push
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          uv run python -m pipeline checkin render > "$RUNNER_TEMP/checkin.md"
+          week=$(grep -o 'week=[0-9]*-W[0-9]*' "$RUNNER_TEMP/checkin.md" | cut -d= -f2)
+          gh label create checkin --color 0E8A16 --description "Weekly review check-in" --force
+          if gh issue list --label checkin --state all --search "$week in:title" --json number --jq '.[0].number' | grep -q .; then
+            echo "check-in for $week already exists"
+          else
+            gh issue create --label checkin --title "Проверка разбора $week" --body-file "$RUNNER_TEMP/checkin.md"
+          fi
