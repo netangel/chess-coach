@@ -22,6 +22,7 @@ class Item(BaseModel):
     count: int | None = None
     url: str | None = None
     rule: str | None = None
+    instead_of: str | None = None  # replaces that day's daily item with this title
 
     @field_validator("url")
     @classmethod
@@ -64,9 +65,20 @@ def check(text: str, cfg: Config) -> list[str]:
     budget = cfg.training.budget.daily_minutes
     if daily_total > budget:
         problems.append(f"daily items take {daily_total} min, budget is {budget}")
+    daily_titles = {i.title for i in plan.daily}
     for item in plan.weekly:
         if item.minutes is None and item.count is None:
             problems.append(f"weekly item {item.title!r} needs minutes or count")
+        if item.instead_of is not None and item.instead_of not in daily_titles:
+            problems.append(
+                f"weekly item {item.title!r}: instead_of {item.instead_of!r} is not a daily item"
+            )
+    # weekly load (games excluded: they have their own budget, games_per_week)
+    extra = sum((i.minutes or 0) * (i.count or 1) for i in plan.weekly if i.instead_of is None)
+    week_total = daily_total * 7 + extra
+    week_budget = budget * 7 + cfg.training.budget.weekend_block_minutes
+    if week_total > week_budget:
+        problems.append(f"week takes {week_total} min, budget is {week_budget}")
     if not body.strip():
         problems.append("plan has no explanation below the front matter")
     return problems

@@ -6,7 +6,7 @@ daily:
   - {title: "Разбор своих ошибок (5 позиций)", minutes: 7, url: "https://lichess.org/study/ubCwtsu5"}
 weekly:
   - {title: "Рапид 15+10", count: 3, url: "https://lichess.org/", rule: "перед каждым ходом: что он бьёт / чем шахует / что я могу взять"}
-  - {title: "Разбор партии на следующий день", minutes: 10, url: "https://lichess.org/@/netangel/all", rule: "3 критических момента: свой анализ, потом движок"}
+  - {title: "Разбор партии на следующий день", minutes: 10, count: 3, url: "https://lichess.org/@/netangel/all", rule: "3 критических момента: свой анализ, потом движок; в этот день вместо смешанных задач", instead_of: "Смешанные задачи"}
   - {title: "Выходные: задачи на реализацию преимущества", minutes: 30, url: "https://lichess.org/training/advantage"}
 minimum_day: "3 позиции из разбора или 1 забег Storm"
 ---

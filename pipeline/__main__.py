@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -123,6 +124,14 @@ def cmd_site() -> int:
     return 0
 
 
+def study_in_ci() -> int:
+    """`all` publishes the study only in CI, so CI stays the single writer of the study."""
+    if not os.environ.get("GITHUB_ACTIONS"):
+        print("study: skipped outside GitHub Actions (run `study` explicitly to publish)")
+        return 0
+    return cmd_study(False, False, False)
+
+
 def cmd_plan_check() -> int:
     problems = plan.check_file(load_config())
     for p in problems:
@@ -199,7 +208,7 @@ def main(argv: list[str] | None = None) -> int:
             or cmd_analyze([], False, None, None)
             or cmd_mistakes()
             or cmd_metrics()
-            or cmd_study(False, False, False)
+            or study_in_ci()
         )
     p.error(f"unknown command {args.cmd}")
     return 2

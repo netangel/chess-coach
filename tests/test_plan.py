@@ -42,3 +42,17 @@ def test_bad_plan_reports_each_problem():
 
 def test_missing_front_matter():
     assert check("just text", CFG) == ["missing YAML front matter"]
+
+
+def test_weekly_budget_and_instead_of():
+    over = GOOD.replace(
+        '  - {title: "Рапид 15+10", count: 3, rule: "проверка хода"}',
+        '  - {title: "Рапид 15+10", count: 3, rule: "проверка хода"}\n'
+        '  - {title: "Разбор партии", minutes: 10, count: 3}\n'
+        '  - {title: "Выходные", minutes: 30}',
+    )
+    assert any("week takes 179 min, budget is 170" in p for p in check(over, CFG))
+    ok = over.replace("minutes: 10, count: 3}", 'minutes: 10, count: 3, instead_of: "Задачи"}')
+    assert check(ok, CFG) == []
+    bad = ok.replace('instead_of: "Задачи"', 'instead_of: "Нет такого"')
+    assert any("is not a daily item" in p for p in check(bad, CFG))
