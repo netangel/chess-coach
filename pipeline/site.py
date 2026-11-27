@@ -86,10 +86,9 @@ def activity(today: date) -> dict:
     }
 
 
-def latest_game(cfg: Config, state: State, mistakes: dict) -> dict | None:
-    """The most recent game with its result and critical moments (study chapter links)."""
+def latest_game(cfg: Config) -> dict | None:
+    """The most recent game: opponent, result, time control, and whether it gets analysed."""
     from .analyze import analysis_path, player_color
-    from .publish_study import chapter_name
 
     games = [
         g for g in iter_ndjson(GAMES_PATH) if player_color(g, cfg.lichess.username) is not None
@@ -105,32 +104,15 @@ def latest_game(cfg: Config, state: State, mistakes: dict) -> dict | None:
     winner = g.get("winner")
     result = "draw" if winner is None else ("win" if winner == color else "loss")
     clock = g.get("clock") or {}
-    study_id = state.study.studyId or cfg.lichess.review_study_id
-    summary = None
-    apath = analysis_path(g["id"])
-    if apath.exists():
-        s = json.loads(apath.read_text(encoding="utf-8"))["summary"]
-        summary = {k: s[k] for k in ("accuracy", "blunders", "mistakes", "inaccuracies")}
+    analysed = analysis_path(g["id"]).exists()
     not_analysed = None
-    if summary is None:
+    if not analysed:
         if g["perf"] not in cfg.analysis.only_perfs:
             not_analysed = "perf"
         elif len(g.get("moves", "").split()) < cfg.analysis.min_plies:
             not_analysed = "short"
         else:
             not_analysed = "pending"  # analysed by the next nightly run
-    moments = []
-    for m in sorted((m for m in mistakes.values() if m.gameId == g["id"]), key=lambda m: m.ply):
-        chapter = state.study.chapters.get(m.id)
-        moments.append(
-            {
-                "label": chapter_name(m).split(" · ")[0],
-                "played": m.played,
-                "winDrop": m.winDrop,
-                "url": study_url(study_id, chapter) if (study_id and chapter) else m.url,
-                "inStudy": bool(chapter),
-            }
-        )
     return {
         "id": g["id"],
         "url": f"https://lichess.org/{g['id']}/{color}",
@@ -143,10 +125,8 @@ def latest_game(cfg: Config, state: State, mistakes: dict) -> dict | None:
         "opponentRating": opp_side.get("rating"),
         "result": result,
         "status": g.get("status"),
-        "analysed": summary is not None,
+        "analysed": analysed,
         "notAnalysed": not_analysed,
-        "summary": summary,
-        "moments": moments,
     }
 
 
@@ -182,7 +162,7 @@ def build_dashboard(cfg: Config, state: State, today: date) -> dict:
             "perDay": cfg.review.max_due_per_day,
         },
         "activity": activity(today),
-        "latestGame": latest_game(cfg, state, mistakes),
+        "latestGame": latest_game(cfg),
         "games": metrics.get("games", {}),
         "puzzles": metrics.get("puzzles", {}),
         "ratings": metrics.get("ratings", {}),

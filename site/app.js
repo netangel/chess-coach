@@ -55,7 +55,6 @@ function taskItem({ title, minutes, url, note, count, steps }) {
 
 const RESULT_RU = { win: "победа", loss: "поражение", draw: "ничья" };
 const STATUS_RU = { mate: "мат", resign: "сдача", outoftime: "по времени", timeout: "соперник покинул игру", draw: "ничья", stalemate: "пат", aborted: "отменена" };
-const CLASS_RU = { blunder: "зевок", mistake: "ошибка" };
 
 function renderLatest(d) {
   const g = d.latestGame;
@@ -64,32 +63,15 @@ function renderLatest(d) {
   const meta = [PERF_RU[g.perf] || g.perf, g.clock, g.rated ? "рейтинговая" : "товарищеская", date].filter(Boolean).join(" · ");
   const opp = `${esc(g.opponent)}${g.opponentRating ? ` (${esc(g.opponentRating)})` : ""}`;
   const result = `<span class="result ${esc(g.result)}">${esc(RESULT_RU[g.result])}</span>${g.status && STATUS_RU[g.status] ? ` <span class="muted small">(${esc(STATUS_RU[g.status])})</span>` : ""}`;
-  let body;
-  if (!g.analysed) {
-    const why = {
-      perf: `Партии «${esc(PERF_RU[g.perf] || g.perf)}» не анализируются: конвейер разбирает рапид и классику.`,
-      short: "Партия слишком короткая для анализа (меньше 10 ходов).",
-      pending: "Анализ появится после ночного запуска конвейера (около 04:00 по Праге).",
-    }[g.notAnalysed] || "Партия ещё не проанализирована.";
-    body = `<p class="small muted">${why}</p>`;
-  } else {
-    const s = g.summary;
-    const stats = `<p class="small">Точность ${esc(s.accuracy ?? "—")}% · зевков ${esc(s.blunders)} · ошибок ${esc(s.mistakes)}</p>`;
-    // the plan asks for 3 turning points: show the 3 costliest in game order, the rest folded
-    const top = new Set([...g.moments].sort((a, b) => b.winDrop - a.winDrop).slice(0, 3));
-    const item = (m) => `<li><a href="${esc(safeUrl(m.url))}" target="_blank" rel="noopener">${esc(m.label)}</a> <span class="muted small">— сыграно ${esc(m.played)}, −${Math.round(m.winDrop)}%</span></li>`;
-    const rest = g.moments.filter((m) => !top.has(m));
-    const moments = g.moments.length
-      ? `<p class="small muted">Переломные моменты для сверки${g.moments.some((m) => m.inStudy) ? " (открываются в учебном разборе)" : ""}:</p>
-         <ul class="moments">${g.moments.filter((m) => top.has(m)).map(item).join("")}</ul>
-         ${rest.length ? `<details><summary class="small">ещё ${rest.length}</summary><ul class="moments">${rest.map(item).join("")}</ul></details>` : ""}`
-      : `<p class="small">Критических моментов нет — чистая партия. Достаточно быстро просмотреть.</p>`;
-    body = stats + moments;
-  }
+  const why = {
+    perf: `Партии «${esc(PERF_RU[g.perf] || g.perf)}» не анализируются: конвейер разбирает рапид и классику.`,
+    short: "Партия слишком короткая для анализа (меньше 10 ходов).",
+    pending: "Анализ появится после ночного запуска конвейера (около 04:00 по Праге).",
+  }[g.notAnalysed];
   $("latest-body").innerHTML = `
     <p><b>${g.color === "white" ? "Белыми" : "Чёрными"} против ${opp}</b> — ${result}</p>
     <p class="small muted">${esc(meta)}</p>
-    ${body}
+    ${why ? `<p class="small muted">${why}</p>` : ""}
     <p class="small"><a href="${esc(safeUrl(g.url))}" target="_blank" rel="noopener">Открыть партию на Lichess →</a></p>`;
 }
 

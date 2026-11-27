@@ -39,10 +39,8 @@ def test_build_writes_static_site(tmp_path):
     assert data["mainPerf"] == "rapid" and "activity" in data and "diagnosis" in data
 
 
-def test_latest_game_with_moments(tmp_path, monkeypatch):
+def test_latest_game(tmp_path, monkeypatch):
     from pipeline.fetch import GAMES_PATH, iter_ndjson
-    from pipeline.mistakes import load_mistakes
-    from pipeline.state import load_state
 
     games = list(iter_ndjson(GAMES_PATH))
     one = next(g for g in games if g["id"] == "dJkzTqwS")
@@ -50,15 +48,13 @@ def test_latest_game_with_moments(tmp_path, monkeypatch):
     path = tmp_path / "games.ndjson"
     path.write_text(json.dumps(one) + "\n")
     monkeypatch.setattr(site, "GAMES_PATH", path)
-    state = load_state()
-    g = site.latest_game(load_config(), state, load_mistakes())
-    assert g["id"] == "dJkzTqwS" and g["analysed"] and g["result"] == "loss"
-    assert g["moments"] and g["moments"] == sorted(
-        g["moments"], key=lambda m: int(m["label"].split()[1].rstrip(","))
-    )
-    in_study = [m for m in g["moments"] if m["inStudy"]]
-    assert all(m["url"].startswith("https://lichess.org/study/") for m in in_study)
+    g = site.latest_game(load_config())
+    assert g["id"] == "dJkzTqwS" and g["analysed"] and g["notAnalysed"] is None
+    assert g["result"] == "loss" and g["color"] == "white"
+    assert set(g) >= {"opponent", "date", "perf", "rated", "url", "status"}
+    assert "moments" not in g and "summary" not in g
 
     path.write_text(json.dumps(one) + "\n" + json.dumps(short) + "\n")
-    g = site.latest_game(load_config(), state, load_mistakes())
-    assert g["id"] == "lriJnjHt" and g["notAnalysed"] == "short" and g["moments"] == []
+    g = site.latest_game(load_config())
+    assert g["id"] == "lriJnjHt" and g["notAnalysed"] == "short"
+    assert g["opponent"] == "Ser-russ" and g["opponentRating"] == 1500
