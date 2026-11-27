@@ -92,7 +92,8 @@ def ends_in_back_rank_mate(board: chess.Board, pv: list[str]) -> bool:
     return False
 
 
-def endgame_type(board: chess.Board) -> str:
+def endgame_type(board: chess.Board) -> str | None:
+    """Descriptive material label, or None for mixed material (no tag)."""
     kinds = {
         p.piece_type
         for p in board.piece_map().values()
@@ -106,7 +107,7 @@ def endgame_type(board: chess.Board) -> str:
         return "endgame.minor-piece"
     if kinds == {chess.QUEEN}:
         return "endgame.queen"
-    return "endgame.technique"
+    return None
 
 
 # -- tagging -------------------------------------------------------------------
@@ -153,8 +154,8 @@ def tag_moment(m: Moment) -> list[str]:
         tags.add("middlegame.defence")
     if m.time_pressure:
         tags.add("middlegame.time-management")
-    if m.phase == "endgame":
-        tags.add(endgame_type(board))
+    if m.phase == "endgame" and (kind := endgame_type(board)):
+        tags.add(kind)
 
     if not tags:
         tags.add("tactics.other")

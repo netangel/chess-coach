@@ -255,7 +255,7 @@ Implemented rules (v1, each → score in [0,1], combined per skill by noisy-OR `
 - mistake tags: share of games with ≥ 1 critical position carrying the tag (`tactics.other` × 0.5; endgame-type tags are descriptive only);
 - conversion: `1 − conversion rate` (n ≥ 3 winning positions); time pressure: error share / 0.5 (n ≥ 5), clock at move 30;
 - opening-phase errors per game / 2; missed wins per game → `calculation.candidate-moves`.
-- Basis: rated/OTB games of the last 365 days if ≥ 5, else all analysed games; legacy correspondence games cap confidence at low.
+- Basis: non-correspondence games of the last 365 days if ≥ 5, else all analysed games; legacy correspondence games cap confidence at low.
 
 ---
 

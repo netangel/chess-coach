@@ -2,7 +2,7 @@
  "week": "2026-W48",
  "asOf": "2026-11-27",
  "basis": {
-  "games": "all analysed games (fewer than 5 recent OTB games); includes legacy correspondence games, so confidence is capped at low",
+  "games": "all analysed games (fewer than 5 recent non-correspondence games); includes legacy correspondence games, so confidence is capped at low",
   "perfs": [
    "correspondence"
   ],
@@ -35,11 +35,11 @@
   },
   {
    "skill": "endgame.technique",
-   "score": 0.607,
+   "score": 0.572,
    "confidence": "low",
    "evidence": [
     "puzzle win rate 38% on 'endgame' vs 52% overall (n=13)",
-    "8 critical positions tagged endgame.technique in 2 of 13 games"
+    "2 critical positions tagged endgame.technique in 1 of 13 games"
    ],
    "url": "https://lichess.org/training/endgame"
   },
@@ -57,7 +57,7 @@
    "score": 0.5,
    "confidence": "low",
    "evidence": [
-    "29 critical positions tagged tactics.other in 13 of 13 games"
+    "34 critical positions tagged tactics.other in 13 of 13 games"
    ],
    "url": null
   },

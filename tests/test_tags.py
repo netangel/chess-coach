@@ -43,6 +43,21 @@ def test_endgame_type():
     assert endgame_type(chess.Board("4k3/p7/8/8/8/8/P7/4K3 w - - 0 1")) == "endgame.pawn"
     assert endgame_type(chess.Board("r3k3/p7/8/8/8/8/P7/R3K3 w - - 0 1")) == "endgame.rook"
     assert endgame_type(chess.Board("4k3/p3n3/8/8/8/8/P7/2B1K3 w - - 0 1")) == "endgame.minor-piece"
+    assert endgame_type(chess.Board("r3k3/p3n3/8/8/8/8/P7/2B1K3 w - - 0 1")) is None
+
+
+def test_mixed_endgame_in_won_game_is_not_technique():
+    tags = tag_moment(
+        moment(
+            fen="r3k3/p3n3/8/8/8/8/P7/2B1K3 w - - 0 1",
+            played="c1d2",
+            best_pv=["c1b2"],
+            win_before=90.0,
+            result="win",
+            phase="endgame",
+        )
+    )
+    assert "endgame.technique" not in tags
 
 
 def moment(**kw):

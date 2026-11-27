@@ -206,11 +206,11 @@ def build(
     ]
     if len(otb) >= MIN_OTB_GAMES:
         games, legacy = otb, False
-        basis = f"rated/OTB games of the last {OTB_WINDOW_DAYS} days"
+        basis = f"non-correspondence games of the last {OTB_WINDOW_DAYS} days"
     else:
         games, legacy = analyses, any(a["perf"] in LEGACY_PERFS for a in analyses)
         basis = (
-            f"all analysed games (fewer than {MIN_OTB_GAMES} recent OTB games); "
+            f"all analysed games (fewer than {MIN_OTB_GAMES} recent non-correspondence games); "
             "includes legacy correspondence games, so confidence is capped at low"
             if legacy
             else "all analysed games"
