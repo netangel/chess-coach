@@ -23,6 +23,7 @@ class Item(BaseModel):
     url: str | None = None
     rule: str | None = None
     instead_of: str | None = None  # replaces that day's daily item with this title
+    steps: list[str] = Field(default_factory=list)  # short how-to, shown as a list
 
     @field_validator("url")
     @classmethod
