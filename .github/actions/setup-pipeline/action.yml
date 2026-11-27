@@ -1,0 +1,45 @@
+name: setup-pipeline
+description: Python via uv + pinned official Stockfish 19 on PATH (version is the analysis cache key)
+runs:
+  using: composite
+  steps:
+    - uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+    - run: uv sync --locked
+      shell: bash
+
+    - name: Cache Stockfish
+      id: sf-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/stockfish
+        key: stockfish-sf_19-linux-x86-64-universal
+
+    - name: Download Stockfish 19
+      if: steps.sf-cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        SF_URL: https://github.com/official-stockfish/Stockfish/releases/download/sf_19/stockfish-linux-x86-64-universal.tar.gz
+        SF_SHA256: 9defc0d4e55d49c65a6d042f3e571a39fcea499ade6dbe741b53b8c65e03611f
+      run: |
+        set -euo pipefail
+        curl -fsSL "$SF_URL" -o /tmp/sf.tar.gz
+        echo "$SF_SHA256  /tmp/sf.tar.gz" | sha256sum -c -
+        mkdir -p ~/stockfish/dist
+        tar -xzf /tmp/sf.tar.gz -C ~/stockfish/dist
+        # prefer an executable named exactly "stockfish", else the first stockfish* executable
+        bin=$(find ~/stockfish/dist -type f -name stockfish -perm -u+x | head -1)
+        [ -n "$bin" ] || bin=$(find ~/stockfish/dist -type f -name 'stockfish*' -perm -u+x | head -1)
+        test -n "$bin" || { echo "::error::no stockfish executable in archive"; exit 1; }
+        echo "$bin" > ~/stockfish/path
+
+    - name: Point the pipeline at Stockfish and verify its version
+      shell: bash
+      run: |
+        set -euo pipefail
+        bin=$(cat ~/stockfish/path)
+        echo "CHESS_COACH_ENGINE=$bin" >> "$GITHUB_ENV"
+        id=$(printf 'uci\nquit\n' | "$bin" | grep '^id name' || true)
+        echo "$bin: $id"
+        [ "$id" = "id name Stockfish 19" ] || { echo "::error::expected Stockfish 19, got '$id'"; exit 1; }

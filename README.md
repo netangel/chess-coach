@@ -36,6 +36,15 @@ uv run python -m pipeline all             # sync + analyze + mistakes + metrics
 uv run pytest && uv run ruff check .
 ```
 
+## Automation (GitHub Actions)
+
+- `nightly.yml` (~03:17 UTC): sync → analyze → mistakes → metrics, then commits `data/` to `main`.
+- `weekly.yml` (Sunday ~16:07 UTC): the same plus Storm/puzzle snapshot and diagnosis.
+- Both use the official Stockfish 19 binary (SHA-256 pinned, cached) and the `LICHESS_TOKEN`
+  repo secret, share the `pipeline` concurrency group, and can be started by hand from the
+  Actions tab ("Run workflow"; untick *push* for a dry run that only logs the commit).
+- After the bot is live, only Actions commits `data/`.
+
 ## Status
 
 | Milestone | State |
@@ -44,7 +53,8 @@ uv run pytest && uv run ruff check .
 | M1 Sync | done |
 | M2 Analysis + mistakes | done |
 | M3 Metrics + diagnosis | done ([baseline report](journal/baseline.md)) |
-| M4 Automation | next |
+| M4 Automation | done (runs once merged to `main`) |
+| M5 Review study | next |
 
 Known limitation: the game cursor is the newest `createdAt`. A long correspondence game created
 before the cursor but finished after it would be missed. Bullet/blitz/rapid/classical are unaffected.

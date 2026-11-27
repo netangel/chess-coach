@@ -75,7 +75,11 @@ class Config(BaseModel):
 def load_config(path: Path | None = None) -> Config:
     path = path or ROOT / "config.yaml"
     with path.open(encoding="utf-8") as f:
-        return Config.model_validate(yaml.safe_load(f))
+        cfg = Config.model_validate(yaml.safe_load(f))
+    # CI points at a downloaded binary without touching config.yaml
+    if engine := os.environ.get("CHESS_COACH_ENGINE"):
+        cfg.engine.binary = engine
+    return cfg
 
 
 def load_token(env_file: Path | None = None) -> str | None:

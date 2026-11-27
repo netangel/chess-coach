@@ -1,0 +1,37 @@
+name: nightly
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # ~03:00 UTC, off the hour to dodge the cron rush
+  workflow_dispatch:
+    inputs:
+      push:
+        description: "Push the data commit (false = dry run: commit is only shown in the log)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-pipeline
+
+      - name: sync → analyze → mistakes → metrics
+        env:
+          LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+        run: uv run python -m pipeline -v all
+
+      - name: Commit data
+        run: >
+          .github/scripts/commit-data.sh
+          "data: nightly $(date -u +%F)"
+          "${{ github.event_name == 'schedule' || inputs.push }}"

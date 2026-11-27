@@ -1,0 +1,41 @@
+name: weekly
+
+on:
+  schedule:
+    - cron: "7 16 * * 0"   # Sunday ~16:00 UTC, before the weekly review
+  workflow_dispatch:
+    inputs:
+      push:
+        description: "Push the data commit (false = dry run)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-pipeline
+
+      - name: Full pipeline, snapshot, diagnosis
+        env:
+          LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+        run: |
+          uv run python -m pipeline -v all
+          uv run python -m pipeline snapshot
+          uv run python -m pipeline metrics
+          uv run python -m pipeline diagnose
+
+      - name: Commit data
+        run: >
+          .github/scripts/commit-data.sh
+          "data: weekly $(date -u +%G-W%V)"
+          "${{ github.event_name == 'schedule' || inputs.push }}"

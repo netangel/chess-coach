@@ -16,6 +16,9 @@ all training happens. Read `DESIGN.md` for the architecture. This file has the r
   `data/raw/` + `data/analysis/`. Don't hand-edit derived files; fix the code instead.
 - Skill keys come from `taxonomy.yaml` (`tactics.fork`, `middlegame.time-management`, …). Never
   invent a key in a plan or diagnosis; add it to the taxonomy first.
+- Once the nightly workflow runs on `main`, **only GitHub Actions commits `data/`**. On feature
+  branches, don't commit pipeline output (`git restore data/` before committing) or merges will
+  conflict with the bot's nightly commits. Pull `main` before working with fresh data.
 - Never print or commit the Lichess token. It lives in `LICHESS_TOKEN` (env, `.env`, or the
   GitHub secret).
 
