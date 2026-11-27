@@ -38,6 +38,8 @@ all training happens. Read `DESIGN.md` for the architecture. This file has the r
   - 2–3 rapid 15+10 games, each reviewed the next day (3 critical moments from the pipeline),
   - weekend endgame block (Lichess Practice; later a book chapter).
 - Every plan item has a direct link and an estimated duration.
+- Any item that is a procedure (not just "do X") gets `steps:`, 2–4 short, concrete actions.
+  `instead_of` names a daily item it replaces on that day, so the time budget still holds.
 - Be honest about adherence. If the plan wasn't followed, lower the load instead of piling on.
 - The diagnosis proposes; you decide. Explain the decision and its evidence in the journal.
 
@@ -61,6 +63,15 @@ daily:
   - {title: "Разбор своих ошибок", minutes: 7, url: "https://lichess.org/study/<id>"}
 weekly:
   - {title: "Рапид 15+10", count: 3, rule: "≥ 30 с на каждое взятие и шах"}
+  - title: "Разбор последней сыгранной партии"
+    minutes: 10
+    count: 3
+    rule: "на следующий день после партии, вместо смешанных задач"
+    instead_of: "Задачи на вилку"
+    steps:
+      - "свой анализ без движка: 3 переломных момента"
+      - "анализ с помощником «Learn from your mistakes»"
+      - "краткий вывод: одна фраза"
   - {title: "Ладейные эндшпили (Practice)", minutes: 30, url: "https://lichess.org/practice"}
 minimum_day: "1 забег Storm или 3 позиции из разбора"
 ---

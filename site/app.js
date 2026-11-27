@@ -46,10 +46,47 @@ const pct = (x) => (x == null ? "—" : `${Math.round(x * 100)}%`);
 const skillName = (k) => SKILL_RU[k] || k;
 const dayWord = (n) => (n % 10 === 1 && n % 100 !== 11 ? "день" : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? "дня" : "дней");
 
-function taskItem({ title, minutes, url, note, count }) {
+function taskItem({ title, minutes, url, note, count, steps }) {
   const badge = minutes ? `${minutes}′` : count ? `×${count}` : "•";
   const label = url ? `<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener">${esc(title)}</a>` : `<b>${esc(title)}</b>`;
-  return `<li><span class="min">${esc(badge)}</span><span>${label}${note ? `<span class="note">${esc(note)}</span>` : ""}</span></li>`;
+  const list = steps?.length ? `<ol class="steps">${steps.map((st) => `<li>${esc(st)}</li>`).join("")}</ol>` : "";
+  return `<li><span class="min">${esc(badge)}</span><span>${label}${note ? `<span class="note">${esc(note)}</span>` : ""}${list}</span></li>`;
+}
+
+const RESULT_RU = { win: "победа", loss: "поражение", draw: "ничья" };
+const STATUS_RU = { mate: "мат", resign: "сдача", outoftime: "по времени", timeout: "соперник покинул игру", draw: "ничья", stalemate: "пат", aborted: "отменена" };
+
+const plural = (n, one, few, many) =>
+  n % 10 === 1 && n % 100 !== 11 ? one : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
+
+function analysisLine(a) {
+  if (!a) return "";
+  const parts = [
+    a.accuracy != null ? `точность ${Math.round(a.accuracy)}%` : null,
+    `${a.blunders} ${plural(a.blunders, "зевок", "зевка", "зевков")}`,
+    `${a.mistakes} ${plural(a.mistakes, "ошибка", "ошибки", "ошибок")}`,
+  ].filter(Boolean);
+  return `<p class="small">Анализ: ${esc(parts.join(" · "))}</p>`;
+}
+
+function renderLatest(d) {
+  const g = d.latestGame;
+  if (!g) { $("latest-body").innerHTML = `<p class="muted">Партий пока нет.</p>`; return; }
+  const date = new Date(g.date + "T12:00:00").toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
+  const meta = [PERF_RU[g.perf] || g.perf, g.clock, g.rated ? "рейтинговая" : "товарищеская", date].filter(Boolean).join(" · ");
+  const opp = `${esc(g.opponent)}${g.opponentRating ? ` (${esc(g.opponentRating)})` : ""}`;
+  const result = `<span class="result ${esc(g.result)}">${esc(RESULT_RU[g.result])}</span>${g.status && STATUS_RU[g.status] ? ` <span class="muted small">(${esc(STATUS_RU[g.status])})</span>` : ""}`;
+  const why = {
+    perf: `Партии «${esc(PERF_RU[g.perf] || g.perf)}» не анализируются: конвейер разбирает рапид и классику.`,
+    short: "Партия слишком короткая для анализа (меньше 10 ходов).",
+    pending: "Анализ появится после ночного запуска конвейера (около 04:00 по Праге).",
+  }[g.notAnalysed];
+  $("latest-body").innerHTML = `
+    <p><b>${g.color === "white" ? "Белыми" : "Чёрными"} против ${opp}</b> — ${result}</p>
+    <p class="small muted">${esc(meta)}</p>
+    ${why ? `<p class="small muted">${why}</p>` : ""}
+    ${analysisLine(g.analysis)}
+    <p class="small"><a href="${esc(safeUrl(g.url))}" target="_blank" rel="noopener">Открыть партию на Lichess →</a></p>`;
 }
 
 function renderToday(d) {
@@ -170,7 +207,7 @@ async function main() {
   try {
     const res = await fetch("dashboard.json", { cache: "no-store" });
     const d = await res.json();
-    for (const fn of [renderToday, renderWeek, renderTrends, renderDiagnosis, renderJournal, renderFooter]) {
+    for (const fn of [renderToday, renderLatest, renderWeek, renderTrends, renderDiagnosis, renderJournal, renderFooter]) {
       try { fn(d); } catch (e) { console.error(fn.name, e); }
     }
   } catch (e) {

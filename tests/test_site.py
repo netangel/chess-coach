@@ -37,3 +37,25 @@ def test_build_writes_static_site(tmp_path):
     assert (out / "index.html").exists() and (out / "app.js").exists()
     data = json.loads((out / "dashboard.json").read_text())
     assert data["mainPerf"] == "rapid" and "activity" in data and "diagnosis" in data
+
+
+def test_latest_game(tmp_path, monkeypatch):
+    from pipeline.fetch import GAMES_PATH, iter_ndjson
+
+    games = list(iter_ndjson(GAMES_PATH))
+    one = next(g for g in games if g["id"] == "dJkzTqwS")
+    short = next(g for g in games if g["id"] == "lriJnjHt")
+    path = tmp_path / "games.ndjson"
+    path.write_text(json.dumps(one) + "\n")
+    monkeypatch.setattr(site, "GAMES_PATH", path)
+    g = site.latest_game(load_config())
+    assert g["id"] == "dJkzTqwS" and g["analysed"] and g["notAnalysed"] is None
+    assert g["analysis"] == {"accuracy": 48.2, "blunders": 9, "mistakes": 1}
+    assert g["result"] == "loss" and g["color"] == "white"
+    assert set(g) >= {"opponent", "date", "perf", "rated", "url", "status"}
+    assert "moments" not in g and "summary" not in g
+
+    path.write_text(json.dumps(one) + "\n" + json.dumps(short) + "\n")
+    g = site.latest_game(load_config())
+    assert g["id"] == "lriJnjHt" and g["notAnalysed"] == "short" and g["analysis"] is None
+    assert g["opponent"] == "Ser-russ" and g["opponentRating"] == 1500
