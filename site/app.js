@@ -72,7 +72,9 @@ function renderToday(d) {
     ${plan ? "" : `<p class="muted small">План на неделю ещё не составлен — пока базовый набор.</p>`}
     <ul class="tasks">${items.join("")}</ul>
     <div class="fallback"><b>Минимальный день:</b> ${esc(minimum)}</div>
-    <p class="small muted">${streak ? `Серия: ${streak} ${dayWord(streak)} подряд` : "Серии пока нет"}${d.activity.activeToday ? " · сегодня уже есть активность ✓" : ""}</p>`;
+    <p class="small muted">${streak ? `Серия: ${streak} ${dayWord(streak)} подряд` : "Серии пока нет"}${d.activity.activeToday ? " · сегодня уже есть активность ✓" : ""}</p>
+    ${plan?.focus?.length ? `<p class="small">Фокус недели: ${plan.focus.map((f) => `<span class="badge focus">${esc(skillName(f))}</span>`).join(" ")}</p>` : ""}
+    ${plan?.html ? `<details><summary class="small">Почему такой план</summary><div class="prose small">${plan.html}</div></details>` : ""}`;
 }
 
 function renderWeek(d) {

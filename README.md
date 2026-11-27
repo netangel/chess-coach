@@ -34,6 +34,7 @@ uv run python -m pipeline metrics         # weekly + rolling aggregates -> data/
 uv run python -m pipeline diagnose        # ranked weaknesses -> data/derived/diagnosis.json
 uv run python -m pipeline study --dry-run # print review-study PGN; without the flag: publish
 uv run python -m pipeline checkin render  # weekly check-in issue body
+uv run python -m pipeline plan-check      # validate plan/current.md against the coaching rules
 uv run python -m pipeline all             # sync + analyze + mistakes + metrics + study
 uv run pytest && uv run ruff check .
 ```
@@ -54,6 +55,18 @@ uv run pytest && uv run ruff check .
   Local preview: `uv run python -m pipeline site && python3 -m http.server -d dist 8765`.
 - After the bot is live, only Actions commits `data/`.
 
+## Weekly coaching (Claude)
+
+On Sundays, after `weekly.yml`, run the review in Claude Code from this repo:
+
+```
+/weekly-review
+```
+
+The skill (`.claude/skills/weekly-review/SKILL.md`) reads the week's data, writes
+`journal/YYYY-Www.md` and the next `plan/current.md` (Russian), validates them with
+`plan-check`, and pushes to `main`, which redeploys the dashboard.
+
 ## Status
 
 | Milestone | State |
@@ -65,7 +78,7 @@ uv run pytest && uv run ruff check .
 | M4 Automation | done (runs once merged to `main`) |
 | M5 Review study | done ([study](https://lichess.org/study/ubCwtsu5), weekly check-in issue) |
 | M6 Dashboard | done (needs Pages enabled, see above) |
-| M7 Coaching loop | next |
+| M7 Coaching loop | first plan written; weekly `/weekly-review` skill (scheduling: see below) |
 
 Known limitation: the game cursor is the newest `createdAt`. A long correspondence game created
 before the cursor but finished after it would be missed. Bullet/blitz/rapid/classical are unaffected.
