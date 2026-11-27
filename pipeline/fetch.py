@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .config import Config
-from .lichess_client import LichessClient
+from .lichess_client import LichessClient, LichessError
 from .state import DATA, State, iso_week, now_ms
 
 log = logging.getLogger(__name__)
@@ -42,10 +42,13 @@ class SyncResult:
     source: str
     added: int
     skipped: str | None = None
+    note: str | None = None
 
     def __str__(self) -> str:
         if self.skipped:
             return f"{self.source}: skipped ({self.skipped})"
+        if self.note:
+            return f"{self.source}: {self.note}"
         return f"{self.source}: +{self.added}"
 
 
@@ -146,7 +149,8 @@ def sync_ratings(
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(history, indent=1) + "\n", encoding="utf-8")
     state.ratingsFetchedAt = now_ms()
-    return SyncResult("ratings", sum(len(p["points"]) for p in history))
+    points = sum(len(p["points"]) for p in history)
+    return SyncResult("ratings", points, note=f"snapshot refreshed, {points} points")
 
 
 def snapshot(client: LichessClient, cfg: Config, directory: Path = SNAPSHOTS) -> SyncResult:
@@ -155,7 +159,12 @@ def snapshot(client: LichessClient, cfg: Config, directory: Path = SNAPSHOTS) ->
     snap: dict = {"week": week, "takenAt": now_ms()}
     snap["storm"] = client.get_json(f"/api/storm/dashboard/{cfg.lichess.username}", {"days": 30})
     if client.has_token:
-        snap["puzzleDashboard"] = client.get_json("/api/puzzle/dashboard/30")
+        try:
+            snap["puzzleDashboard"] = client.get_json("/api/puzzle/dashboard/30")
+        except LichessError as e:
+            # Lichess answers 404 when there were no puzzles in the window
+            log.warning("snapshot: puzzle dashboard unavailable (%s)", e)
+            snap["puzzleDashboard"] = None
     else:
         log.warning("snapshot: no token, puzzle dashboard skipped")
     directory.mkdir(parents=True, exist_ok=True)

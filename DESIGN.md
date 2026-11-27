@@ -250,6 +250,13 @@ Weekly and rolling-4-week aggregates per perf:
 ### 7.5 Diagnosis (`diagnose.py`)
 Rule-based, transparent scoring per taxonomy skill, combining normalized signals (e.g. theme win rate gap vs overall, share of errors in a phase vs expected, time-pressure share). Output ranked list with `score`, `confidence` (by sample size) and human-readable `evidence`. The diagnosis proposes; Claude decides the plan.
 
+Implemented rules (v1, each → score in [0,1], combined per skill by noisy-OR `1 − Π(1 − s)`):
+- puzzle theme gap: `(overall − theme win rate) / 0.25`, themes with n ≥ 10 only (low confidence below 30);
+- mistake tags: share of games with ≥ 1 critical position carrying the tag (`tactics.other` × 0.5; endgame-type tags are descriptive only);
+- conversion: `1 − conversion rate` (n ≥ 3 winning positions); time pressure: error share / 0.5 (n ≥ 5), clock at move 30;
+- opening-phase errors per game / 2; missed wins per game → `calculation.candidate-moves`.
+- Basis: rated/OTB games of the last 365 days if ≥ 5, else all analysed games; legacy correspondence games cap confidence at low.
+
 ---
 
 ## 8. Coaching loop (Claude)

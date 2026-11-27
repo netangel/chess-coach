@@ -6,13 +6,13 @@ import argparse
 import logging
 import sys
 
-from . import analyze, fetch, mistakes
+from . import analyze, diagnose, fetch, metrics, mistakes
 from .config import load_config, load_token
 from .lichess_client import LichessClient
 from .state import load_state, now_ms, save_state
 
 SOURCES = ("games", "puzzles", "ratings")
-NOT_YET = {"metrics": "M3", "diagnose": "M3", "study": "M5"}
+NOT_YET = {"study": "M5"}
 
 
 def cmd_sync(only: list[str]) -> int:
@@ -56,6 +56,20 @@ def cmd_mistakes() -> int:
     return 0
 
 
+def cmd_metrics() -> int:
+    stats = metrics.run(load_config())
+    print("metrics:", ", ".join(f"{k} {v}" for k, v in sorted(stats.items())))
+    return 0
+
+
+def cmd_diagnose() -> int:
+    d = diagnose.run(load_config())
+    print(f"diagnose: {len(d['weaknesses'])} weaknesses ({d['basis']['games']})")
+    for w in d["weaknesses"][:5]:
+        print(f"  {w['score']:.2f} {w['confidence']:<6} {w['skill']}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline")
     p.add_argument("-v", "--verbose", action="store_true")
@@ -69,6 +83,8 @@ def main(argv: list[str] | None = None) -> int:
     a.add_argument("--limit", type=int, help="max games to run through the engine")
     a.add_argument("--threads", type=int, help="override engine.threads for this run")
     sub.add_parser("mistakes", help="extract critical positions into data/mistakes.jsonl")
+    sub.add_parser("metrics", help="weekly + rolling aggregates into data/derived/")
+    sub.add_parser("diagnose", help="ranked weaknesses into data/derived/diagnosis.json")
     c = sub.add_parser("compare", help="our analysis vs Lichess server analysis for a game")
     c.add_argument("game_id")
     for name in NOT_YET:
@@ -93,11 +109,20 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_analyze(args.game, args.force, args.limit, args.threads)
     if args.cmd == "mistakes":
         return cmd_mistakes()
+    if args.cmd == "metrics":
+        return cmd_metrics()
+    if args.cmd == "diagnose":
+        return cmd_diagnose()
     if args.cmd == "compare":
         print(analyze.compare_report(args.game_id, load_config()))
         return 0
     if args.cmd == "all":
-        return cmd_sync(list(SOURCES)) or cmd_analyze([], False, None, None) or cmd_mistakes()
+        return (
+            cmd_sync(list(SOURCES))
+            or cmd_analyze([], False, None, None)
+            or cmd_mistakes()
+            or cmd_metrics()
+        )
     print(f"{args.cmd}: not implemented yet (milestone {NOT_YET[args.cmd]})", file=sys.stderr)
     return 2
 

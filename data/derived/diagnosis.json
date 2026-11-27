@@ -1,0 +1,83 @@
+{
+ "week": "2026-W48",
+ "asOf": "2026-11-27",
+ "basis": {
+  "games": "all analysed games (fewer than 5 recent OTB games); includes legacy correspondence games, so confidence is capped at low",
+  "perfs": [
+   "correspondence"
+  ],
+  "puzzles": "all time"
+ },
+ "sampleSize": {
+  "games": 13,
+  "criticalPositions": 53,
+  "puzzles": 27
+ },
+ "weaknesses": [
+  {
+   "skill": "opening.early-deviations",
+   "score": 0.846,
+   "confidence": "low",
+   "evidence": [
+    "1.7 mistakes+blunders per game in the opening phase (n=13)"
+   ],
+   "url": null
+  },
+  {
+   "skill": "middlegame.conversion",
+   "score": 0.744,
+   "confidence": "low",
+   "evidence": [
+    "converted 2 of 6 games with a winning position (≥75%)",
+    "7 critical positions tagged middlegame.conversion in 3 of 13 games"
+   ],
+   "url": "https://lichess.org/training/advantage"
+  },
+  {
+   "skill": "endgame.technique",
+   "score": 0.607,
+   "confidence": "low",
+   "evidence": [
+    "puzzle win rate 38% on 'endgame' vs 52% overall (n=13)",
+    "8 critical positions tagged endgame.technique in 2 of 13 games"
+   ],
+   "url": "https://lichess.org/training/endgame"
+  },
+  {
+   "skill": "calculation.candidate-moves",
+   "score": 0.538,
+   "confidence": "low",
+   "evidence": [
+    "7 missed wins (opponent's error not punished) in 13 games"
+   ],
+   "url": null
+  },
+  {
+   "skill": "tactics.other",
+   "score": 0.5,
+   "confidence": "low",
+   "evidence": [
+    "29 critical positions tagged tactics.other in 13 of 13 games"
+   ],
+   "url": null
+  },
+  {
+   "skill": "middlegame.defence",
+   "score": 0.462,
+   "confidence": "low",
+   "evidence": [
+    "9 critical positions tagged middlegame.defence in 6 of 13 games"
+   ],
+   "url": "https://lichess.org/training/equality"
+  },
+  {
+   "skill": "tactics.hangingPiece",
+   "score": 0.154,
+   "confidence": "low",
+   "evidence": [
+    "2 critical positions tagged tactics.hangingPiece in 2 of 13 games"
+   ],
+   "url": "https://lichess.org/training/hangingPiece"
+  }
+ ]
+}
