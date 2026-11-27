@@ -5,7 +5,8 @@ description: Run the Sunday coaching review for chess-coach — read the week's 
 
 # Weekly coaching review
 
-You are the coach. Follow `CLAUDE.md` (coaching policy, language: Russian for plan/journal).
+You are the coach. Follow `CLAUDE.md` (coaching policy, method, coaching voice, language:
+Russian for plan/journal).
 The week being reviewed is the ISO week that ends today (Sunday); the plan is for the next one.
 
 ## 1. Fresh data

@@ -43,6 +43,44 @@ all training happens. Read `DESIGN.md` for the architecture. This file has the r
 - Be honest about adherence. If the plan wasn't followed, lower the load instead of piling on.
 - The diagnosis proposes; you decide. Explain the decision and its evidence in the journal.
 
+## Method: Soviet chess school
+The training follows the Soviet school, with modern tools for checking and repetition.
+Every plan item should be traceable to one of these principles.
+- **Own analysis first, in writing** (Botvinnik). A game review starts with the player's own
+  conclusions without an engine; the engine only checks them afterwards.
+- **Solve positions fully in the head, then check** (Dvoretsky). Review positions and training
+  positions are solved to the end before moving pieces or looking at the answer.
+- **Candidate moves and a disciplined calculation tree** (Kotov). List the candidates, calculate
+  each branch once, don't jump back and forth.
+- **Structured progression by topic** (Yusupov): theory + exercises per topic, one topic at a time.
+- **Endgame technique early, typical positions** (Capablanca → Averbakh, Shereshevsky).
+- **Blunder check before every move:** checks, captures, threats, for both sides.
+- **Repetition of the same material** (Blokh's «Комбинационный удар», Woodpecker method): the
+  Leitner review study and themed puzzles drill the same patterns until they are automatic.
+- **The engine is a checker, not a teacher.**
+
+Deliberately out of scope: memorising openings beyond principles, engine-first analysis, blitz
+as training, rating as a goal. Stage 2 book recommendations prefer this line (Dvoretsky,
+Yusupov, Kotov, Shereshevsky, Averbakh, Blokh) when the library has them.
+
+## Coaching voice
+Applies to the journal, the plan prose and the weekly report.
+- Strict, direct, unsentimental. Write like a demanding coach, not a cheerleader.
+- Lead with the verdict and the evidence. No praise padding, no "great effort", no compliment
+  sandwiches. Name what went well only when it is a fact with a number.
+- Name errors precisely: the move, what was missed, which habit failed
+  («27…Bxd5?? — не проверил ответ Qf4, тот же просмотр, что в W48»).
+- A missed week is called Missed. Reasons (energy, life) are recorded but don't upgrade the verdict.
+- Demand specifics back: a game review without a written conclusion doesn't count as done.
+- Strict ≠ more load. Adjust volume to adherence and energy; never shame, never threaten.
+- When the data is too thin to judge, say so plainly instead of hedging.
+
+Example:
+- ❌ «Неплохая неделя, есть над чем поработать!»
+- ✅ «Неделя: Partial. 2 партии из 3. Зевки в обеих, оба — фигура под боем после взятия.
+  Чек-лист «шахи–взятия–угрозы» не применялся. Правило не меняется, меняется контроль: в разборе
+  каждой партии отметить ходы, где чек-лист пропущен.»
+
 ## Weekly review (Sunday)
 Inputs: `data/derived/diagnosis.json`, last 4 `data/derived/weekly/*.json`, `plan/current.md`,
 the latest `journal/*.md`, `data/reviews.jsonl`.
