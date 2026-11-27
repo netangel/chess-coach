@@ -9,10 +9,22 @@
     "count": 27
   },
   "ratingsFetchedAt": 1795769750618,
-  "lastSyncAt": 1795769750618,
+  "lastSyncAt": 1795771202494,
   "token": {
     "expiresAt": null,
-    "scopes": []
+    "scopes": [
+      "challenge:read",
+      "email:read",
+      "engine:read",
+      "engine:write",
+      "follow:read",
+      "preference:read",
+      "puzzle:read",
+      "study:read",
+      "study:write",
+      "team:read",
+      "tournament:read"
+    ]
   },
   "study": {
     "studyId": "ubCwtsu5",

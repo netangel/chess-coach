@@ -153,6 +153,17 @@ def sync_ratings(
     return SyncResult("ratings", points, note=f"snapshot refreshed, {points} points")
 
 
+def sync_token(client: LichessClient, state: State) -> SyncResult:
+    info = client.token_info()
+    if not info:
+        return SyncResult("token", 0, skipped="no token or unknown token")
+    state.token.scopes = sorted(info.get("scopes", "").split(","))
+    state.token.expiresAt = info.get("expires")
+    missing = {"puzzle:read", "study:read", "study:write"} - set(state.token.scopes)
+    note = "valid" + (f", MISSING scopes {sorted(missing)}" if missing else "")
+    return SyncResult("token", 0, note=note)
+
+
 def snapshot(client: LichessClient, cfg: Config, directory: Path = SNAPSHOTS) -> SyncResult:
     """Weekly: 30-day puzzle dashboard + storm dashboard → raw/snapshots/YYYY-Www.json."""
     week = iso_week()

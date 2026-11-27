@@ -8,12 +8,12 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-from . import analyze, checkin, diagnose, fetch, metrics, mistakes, publish_study
+from . import analyze, checkin, diagnose, fetch, metrics, mistakes, publish_study, site
 from .config import load_config, load_token
 from .lichess_client import LichessClient
 from .state import load_state, now_ms, save_state
 
-SOURCES = ("games", "puzzles", "ratings")
+SOURCES = ("games", "puzzles", "ratings", "token")
 
 
 def cmd_sync(only: list[str]) -> int:
@@ -26,6 +26,8 @@ def cmd_sync(only: list[str]) -> int:
                     res = fetch.sync_games(client, cfg, state)
                 elif source == "puzzles":
                     res = fetch.sync_puzzles(client, state)
+                elif source == "token":
+                    res = fetch.sync_token(client, state)
                 else:
                     res = fetch.sync_ratings(client, cfg, state)
                 print(res)
@@ -115,6 +117,12 @@ def cmd_checkin(action: str, issue: int | None, body_file: str | None) -> int:
     return 0
 
 
+def cmd_site() -> int:
+    out = site.build(load_config(), load_state())
+    print(f"site: built {out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="python -m pipeline")
     p.add_argument("-v", "--verbose", action="store_true")
@@ -136,6 +144,7 @@ def main(argv: list[str] | None = None) -> int:
     st.add_argument("--dry-run", action="store_true", help="print the PGN, no API writes")
     st.add_argument("--init", action="store_true", help="create the private study if not set")
     st.add_argument("--force", action="store_true", help="rebuild even if unchanged")
+    sub.add_parser("site", help="build the dashboard into dist/")
     ci = sub.add_parser("checkin", help="weekly review check-in issue")
     ci.add_argument("action", choices=["render", "apply"])
     ci.add_argument("--issue", type=int)
@@ -168,6 +177,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_study(args.dry_run, args.init, args.force)
     if args.cmd == "checkin":
         return cmd_checkin(args.action, args.issue, args.body_file)
+    if args.cmd == "site":
+        return cmd_site()
     if args.cmd == "compare":
         print(analyze.compare_report(args.game_id, load_config()))
         return 0

@@ -46,6 +46,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "chess" },
     { name = "httpx" },
+    { name = "markdown" },
     { name = "pydantic" },
     { name = "pyyaml" },
 ]
@@ -60,6 +61,7 @@ dev = [
 requires-dist = [
     { name = "chess", specifier = ">=1.11" },
     { name = "httpx", specifier = ">=0.27" },
+    { name = "markdown", specifier = ">=3.6" },
     { name = "pydantic", specifier = ">=2.8" },
     { name = "pyyaml", specifier = ">=6.0" },
 ]
@@ -132,6 +134,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/01/e1/2069291243c926a2ff1cd706c7f3eeb9b62144bf60f77c9fb9ff2fb26bd3/iniconfig-2.3.1.tar.gz", hash = "sha256:67f4b9c50da0dedf52af349e7749a80a9057a5031199791b906c3bb3ae878960", size = 21209, upload-time = "2026-10-06T22:48:38.076Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl", hash = "sha256:9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7", size = 7552, upload-time = "2026-10-06T22:48:36.959Z" },
+]
+
+[[package]]
+name = "markdown"
+version = "3.11.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1c/ff/8644daa33bfdf552c9cfec8d1fc2c690f57a347808f62c406ac6557329c2/markdown-3.11.4.tar.gz", hash = "sha256:c911a757f33d64a2578bed2d20c57e007b2aedd8a67bceabd593b31143d54ead", size = 505340, upload-time = "2026-11-25T16:26:12.029Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/54/188fcc228c71a4ae33244008af08c2e7b1945b657390f56d82dfbe4059f0/markdown-3.11.4-py3-none-any.whl", hash = "sha256:2e30b19cead1968f391206e184ca67dfe6805c2eb8f383fb07b4dc90f8288075", size = 119551, upload-time = "2026-11-25T16:26:10.692Z" },
 ]
 
 [[package]]

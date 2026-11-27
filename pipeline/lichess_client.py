@@ -48,6 +48,7 @@ class LichessClient:
         if token:
             headers["Authorization"] = f"Bearer {token}"
         self.has_token = bool(token)
+        self._token = token
         self._sleep = sleep
         self._http = httpx.Client(
             base_url=base_url,
@@ -125,6 +126,14 @@ class LichessClient:
         with self._request("POST", path, data=_clean(data)) as resp:
             resp.read()
             return resp.json() if resp.content else None
+
+    def token_info(self) -> dict | None:
+        """Scopes and expiry of our own token (POST /api/token/test, body = the token)."""
+        if not self._token:
+            return None
+        with self._request("POST", "/api/token/test", content=self._token) as resp:
+            resp.read()
+            return (resp.json() or {}).get(self._token)
 
     def delete(self, path: str) -> None:
         with self._request("DELETE", path) as resp:

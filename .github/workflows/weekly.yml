@@ -55,3 +55,12 @@ jobs:
           else
             gh issue create --label checkin --title "Проверка разбора $week" --body-file "$RUNNER_TEMP/checkin.md"
           fi
+
+  pages:
+    needs: weekly
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    if: github.event_name == 'schedule' || inputs.push
+    uses: ./.github/workflows/pages.yml

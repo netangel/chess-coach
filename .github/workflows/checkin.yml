@@ -37,3 +37,11 @@ jobs:
       - name: Commit data
         run: |
           .github/scripts/commit-data.sh "data: check-in #${{ github.event.issue.number }}"
+
+  pages:
+    needs: apply
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml

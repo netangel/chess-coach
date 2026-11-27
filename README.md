@@ -48,6 +48,10 @@ uv run pytest && uv run ruff check .
 - `weekly.yml` also opens a **check-in issue** listing the week's review positions. Tick
   «решил верно» or «ошибся» per position and close the issue: `checkin.yml` records the
   results (Leitner boxes) and updates the study. Untouched positions come back again.
+- `pages.yml` builds the dashboard (`site/` + `dashboard.json`) and deploys it to GitHub Pages
+  after every data run, and when `site/`, `plan/` or `journal/` change on `main`.
+  **One-time setup:** repo Settings → Pages → Source: *GitHub Actions*.
+  Local preview: `uv run python -m pipeline site && python3 -m http.server -d dist 8765`.
 - After the bot is live, only Actions commits `data/`.
 
 ## Status
@@ -60,7 +64,8 @@ uv run pytest && uv run ruff check .
 | M3 Metrics + diagnosis | done ([baseline report](journal/baseline.md)) |
 | M4 Automation | done (runs once merged to `main`) |
 | M5 Review study | done ([study](https://lichess.org/study/ubCwtsu5), weekly check-in issue) |
-| M6 Dashboard | next |
+| M6 Dashboard | done (needs Pages enabled, see above) |
+| M7 Coaching loop | next |
 
 Known limitation: the game cursor is the newest `createdAt`. A long correspondence game created
 before the cursor but finished after it would be missed. Bullet/blitz/rapid/classical are unaffected.

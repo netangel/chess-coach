@@ -1,0 +1,46 @@
+name: pages
+
+# Builds the dashboard from main and deploys it to GitHub Pages.
+# Called by nightly/weekly/checkin after their data commit (bot pushes don't trigger workflows),
+# and runs on its own when the site, plan or journal change on main.
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["site/**", "plan/**", "journal/**", "pipeline/site.py"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main  # latest, including the data commit the caller just pushed
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run python -m pipeline site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

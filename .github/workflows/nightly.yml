@@ -35,3 +35,12 @@ jobs:
           .github/scripts/commit-data.sh
           "data: nightly $(date -u +%F)"
           "${{ github.event_name == 'schedule' || inputs.push }}"
+
+  pages:
+    needs: pipeline
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    if: github.event_name == 'schedule' || inputs.push
+    uses: ./.github/workflows/pages.yml
