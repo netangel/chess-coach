@@ -1,0 +1,47 @@
+name: checkin
+
+# Closing a weekly check-in issue records the review results and updates the study.
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+  issues: read
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    if: contains(github.event.issue.labels.*.name, 'checkin')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: ./.github/actions/setup-pipeline
+
+      - name: Record results and republish the study
+        env:
+          LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          printf '%s' "$ISSUE_BODY" > "$RUNNER_TEMP/body.md"
+          uv run python -m pipeline checkin apply --issue ${{ github.event.issue.number }} --body-file "$RUNNER_TEMP/body.md"
+          uv run python -m pipeline study
+          uv run python -m pipeline metrics
+
+      - name: Commit data
+        run: |
+          .github/scripts/commit-data.sh "data: check-in #${{ github.event.issue.number }}"
+
+  pages:
+    needs: apply
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml

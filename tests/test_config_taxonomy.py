@@ -24,3 +24,8 @@ def test_token_from_env_file(tmp_path, monkeypatch):
     assert load_token(env) == "lip_test"
     monkeypatch.setenv("LICHESS_TOKEN", "lip_env")
     assert load_token(env) == "lip_env"
+
+
+def test_engine_override_from_env(monkeypatch):
+    monkeypatch.setenv("CHESS_COACH_ENGINE", "/opt/sf/stockfish")
+    assert load_config().engine.binary == "/opt/sf/stockfish"

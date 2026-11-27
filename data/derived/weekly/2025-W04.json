@@ -1,0 +1,214 @@
+{
+ "week": "2025-W04",
+ "games": {
+  "correspondence": {
+   "n": 1,
+   "results": {
+    "win": 0,
+    "draw": 0,
+    "loss": 1
+   },
+   "score": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "blundersPerGame": {
+    "opening": 1.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 1.0
+   },
+   "mistakesPerGame": {
+    "opening": 2.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 2.0
+   },
+   "inaccuraciesPerGame": {
+    "opening": 0.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 0.0
+   },
+   "errorsByPhase": {
+    "opening": 3,
+    "middlegame": 0,
+    "endgame": 0
+   },
+   "timePressureErrorShare": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "clockShareAtMove": {
+    "20": {
+     "value": null,
+     "n": 0
+    },
+    "30": {
+     "value": null,
+     "n": 0
+    },
+    "40": {
+     "value": null,
+     "n": 0
+    }
+   },
+   "conversionRate": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "saveRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "missedWins": {
+    "value": 0,
+    "n": 1
+   },
+   "acpl": {
+    "value": 35.0,
+    "n": 1
+   },
+   "accuracy": {
+    "value": 91.4,
+    "n": 1
+   },
+   "byOpening": []
+  }
+ },
+ "puzzles": {
+  "n": 10,
+  "winRate": {
+   "value": 0.4,
+   "k": 4,
+   "n": 10
+  },
+  "avgPuzzleRating": {
+   "value": 1720.0,
+   "n": 10
+  },
+  "themes": {
+   "crushing": {
+    "value": 0.375,
+    "k": 3,
+    "n": 8
+   },
+   "endgame": {
+    "value": 0.286,
+    "k": 2,
+    "n": 7
+   },
+   "short": {
+    "value": 0.4,
+    "k": 2,
+    "n": 5
+   },
+   "veryLong": {
+    "value": 0.333,
+    "k": 1,
+    "n": 3
+   },
+   "middlegame": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "intermezzo": {
+    "value": 1.0,
+    "k": 2,
+    "n": 2
+   },
+   "pin": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "deflection": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "master": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "exposedKing": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "long": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "knightEndgame": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "sacrifice": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "kingsideAttack": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "quietMove": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "clearance": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "mateIn3": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "queenEndgame": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "advantage": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "trappedPiece": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "advancedPawn": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "promotion": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   }
+  }
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}

@@ -1,0 +1,598 @@
+{
+ "asOf": "2026-11-27",
+ "latestDataAt": 1740249321155,
+ "mainPerf": "rapid",
+ "games": {
+  "correspondence": {
+   "last4Weeks": {
+    "n": 0,
+    "results": {
+     "win": 0,
+     "draw": 0,
+     "loss": 0
+    },
+    "score": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "blundersPerGame": {
+     "opening": null,
+     "middlegame": null,
+     "endgame": null,
+     "total": null
+    },
+    "mistakesPerGame": {
+     "opening": null,
+     "middlegame": null,
+     "endgame": null,
+     "total": null
+    },
+    "inaccuraciesPerGame": {
+     "opening": null,
+     "middlegame": null,
+     "endgame": null,
+     "total": null
+    },
+    "errorsByPhase": {
+     "opening": 0,
+     "middlegame": 0,
+     "endgame": 0
+    },
+    "timePressureErrorShare": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "clockShareAtMove": {
+     "20": {
+      "value": null,
+      "n": 0
+     },
+     "30": {
+      "value": null,
+      "n": 0
+     },
+     "40": {
+      "value": null,
+      "n": 0
+     }
+    },
+    "conversionRate": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "saveRate": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "missedWins": {
+     "value": 0,
+     "n": 0
+    },
+    "acpl": {
+     "value": null,
+     "n": 0
+    },
+    "accuracy": {
+     "value": null,
+     "n": 0
+    },
+    "byOpening": []
+   },
+   "last12Months": {
+    "n": 0,
+    "results": {
+     "win": 0,
+     "draw": 0,
+     "loss": 0
+    },
+    "score": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "blundersPerGame": {
+     "opening": null,
+     "middlegame": null,
+     "endgame": null,
+     "total": null
+    },
+    "mistakesPerGame": {
+     "opening": null,
+     "middlegame": null,
+     "endgame": null,
+     "total": null
+    },
+    "inaccuraciesPerGame": {
+     "opening": null,
+     "middlegame": null,
+     "endgame": null,
+     "total": null
+    },
+    "errorsByPhase": {
+     "opening": 0,
+     "middlegame": 0,
+     "endgame": 0
+    },
+    "timePressureErrorShare": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "clockShareAtMove": {
+     "20": {
+      "value": null,
+      "n": 0
+     },
+     "30": {
+      "value": null,
+      "n": 0
+     },
+     "40": {
+      "value": null,
+      "n": 0
+     }
+    },
+    "conversionRate": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "saveRate": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "missedWins": {
+     "value": 0,
+     "n": 0
+    },
+    "acpl": {
+     "value": null,
+     "n": 0
+    },
+    "accuracy": {
+     "value": null,
+     "n": 0
+    },
+    "byOpening": []
+   },
+   "allTime": {
+    "n": 13,
+    "results": {
+     "win": 2,
+     "draw": 0,
+     "loss": 11
+    },
+    "score": {
+     "value": 0.154,
+     "k": 4,
+     "n": 26
+    },
+    "blundersPerGame": {
+     "opening": 1.08,
+     "middlegame": 1.31,
+     "endgame": 0.62,
+     "total": 3.0
+    },
+    "mistakesPerGame": {
+     "opening": 0.62,
+     "middlegame": 0.46,
+     "endgame": 0.08,
+     "total": 1.15
+    },
+    "inaccuraciesPerGame": {
+     "opening": 1.08,
+     "middlegame": 0.85,
+     "endgame": 0.69,
+     "total": 2.62
+    },
+    "errorsByPhase": {
+     "opening": 22,
+     "middlegame": 23,
+     "endgame": 9
+    },
+    "timePressureErrorShare": {
+     "value": null,
+     "k": 0,
+     "n": 0
+    },
+    "clockShareAtMove": {
+     "20": {
+      "value": null,
+      "n": 0
+     },
+     "30": {
+      "value": null,
+      "n": 0
+     },
+     "40": {
+      "value": null,
+      "n": 0
+     }
+    },
+    "conversionRate": {
+     "value": 0.333,
+     "k": 2,
+     "n": 6
+    },
+    "saveRate": {
+     "value": 0.091,
+     "k": 1,
+     "n": 11
+    },
+    "missedWins": {
+     "value": 7,
+     "n": 13
+    },
+    "acpl": {
+     "value": 73.4,
+     "n": 13
+    },
+    "accuracy": {
+     "value": 72.6,
+     "n": 13
+    },
+    "byOpening": []
+   }
+  }
+ },
+ "puzzles": {
+  "last4Weeks": {
+   "n": 0,
+   "winRate": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "avgPuzzleRating": {
+    "value": null,
+    "n": 0
+   },
+   "themes": {}
+  },
+  "last12Months": {
+   "n": 0,
+   "winRate": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "avgPuzzleRating": {
+    "value": null,
+    "n": 0
+   },
+   "themes": {}
+  },
+  "allTime": {
+   "n": 27,
+   "winRate": {
+    "value": 0.519,
+    "k": 14,
+    "n": 27
+   },
+   "avgPuzzleRating": {
+    "value": 1694.0,
+    "n": 27
+   },
+   "themes": {
+    "short": {
+     "value": 0.562,
+     "k": 9,
+     "n": 16
+    },
+    "crushing": {
+     "value": 0.438,
+     "k": 7,
+     "n": 16
+    },
+    "middlegame": {
+     "value": 0.643,
+     "k": 9,
+     "n": 14
+    },
+    "endgame": {
+     "value": 0.385,
+     "k": 5,
+     "n": 13
+    },
+    "advantage": {
+     "value": 0.625,
+     "k": 5,
+     "n": 8
+    },
+    "veryLong": {
+     "value": 0.5,
+     "k": 3,
+     "n": 6
+    },
+    "long": {
+     "value": 0.4,
+     "k": 2,
+     "n": 5
+    },
+    "fork": {
+     "value": 0.5,
+     "k": 2,
+     "n": 4
+    },
+    "master": {
+     "value": 0.25,
+     "k": 1,
+     "n": 4
+    },
+    "kingsideAttack": {
+     "value": 1.0,
+     "k": 3,
+     "n": 3
+    },
+    "deflection": {
+     "value": 0.333,
+     "k": 1,
+     "n": 3
+    },
+    "pin": {
+     "value": 0.667,
+     "k": 2,
+     "n": 3
+    },
+    "mateIn2": {
+     "value": 0.5,
+     "k": 1,
+     "n": 2
+    },
+    "quietMove": {
+     "value": 0.0,
+     "k": 0,
+     "n": 2
+    },
+    "intermezzo": {
+     "value": 1.0,
+     "k": 2,
+     "n": 2
+    },
+    "exposedKing": {
+     "value": 0.5,
+     "k": 1,
+     "n": 2
+    },
+    "discoveredAttack": {
+     "value": 1.0,
+     "k": 1,
+     "n": 1
+    },
+    "masterVsMaster": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    },
+    "skewer": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    },
+    "bishopEndgame": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    },
+    "knightEndgame": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    },
+    "sacrifice": {
+     "value": 1.0,
+     "k": 1,
+     "n": 1
+    },
+    "clearance": {
+     "value": 1.0,
+     "k": 1,
+     "n": 1
+    },
+    "mateIn3": {
+     "value": 1.0,
+     "k": 1,
+     "n": 1
+    },
+    "queenEndgame": {
+     "value": 1.0,
+     "k": 1,
+     "n": 1
+    },
+    "trappedPiece": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    },
+    "advancedPawn": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    },
+    "promotion": {
+     "value": 0.0,
+     "k": 0,
+     "n": 1
+    }
+   }
+  }
+ },
+ "ratings": {
+  "puzzle": [
+   [
+    "2020-01-24",
+    1574
+   ],
+   [
+    "2020-01-27",
+    1675
+   ],
+   [
+    "2020-02-02",
+    1729
+   ],
+   [
+    "2020-02-06",
+    1709
+   ],
+   [
+    "2021-10-11",
+    1697
+   ],
+   [
+    "2023-06-19",
+    1761
+   ],
+   [
+    "2023-06-23",
+    1743
+   ],
+   [
+    "2024-12-31",
+    1719
+   ],
+   [
+    "2025-01-21",
+    1736
+   ],
+   [
+    "2025-01-22",
+    1696
+   ]
+  ]
+ },
+ "storm": {
+  "week": "2026-W48",
+  "high": null,
+  "runs30d": 0,
+  "best30d": null,
+  "avgDailyBest30d": {
+   "value": null,
+   "n": 0
+  },
+  "n": 0
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ },
+ "weeklySeries": [
+  {
+   "week": "2016-W52",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 0.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 87.0,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2017-W01",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 12.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 49.0,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2017-W02",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 9.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 48.2,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2017-W12",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 2.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 64.8,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2017-W23",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 1.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 86.3,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2020-W04",
+   "correspondence.games": 2,
+   "correspondence.blundersPerGame": 1.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 67.9,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2020-W05",
+   "correspondence.games": 2,
+   "correspondence.blundersPerGame": 2.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 72.5,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2020-W06",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 0.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 90.3,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  },
+  {
+   "week": "2021-W41",
+   "puzzles.n": 7,
+   "puzzles.winRate": 0.571
+  },
+  {
+   "week": "2023-W25",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 5.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 69.8,
+   "puzzles.n": 5,
+   "puzzles.winRate": 0.6
+  },
+  {
+   "week": "2025-W01",
+   "puzzles.n": 5,
+   "puzzles.winRate": 0.6
+  },
+  {
+   "week": "2025-W04",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 1.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 91.4,
+   "puzzles.n": 10,
+   "puzzles.winRate": 0.4
+  },
+  {
+   "week": "2025-W08",
+   "correspondence.games": 1,
+   "correspondence.blundersPerGame": 3.0,
+   "correspondence.timePressureErrorShare": null,
+   "correspondence.accuracy": 76.7,
+   "puzzles.n": 0,
+   "puzzles.winRate": null
+  }
+ ]
+}

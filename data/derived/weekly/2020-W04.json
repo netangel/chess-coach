@@ -1,0 +1,103 @@
+{
+ "week": "2020-W04",
+ "games": {
+  "correspondence": {
+   "n": 2,
+   "results": {
+    "win": 0,
+    "draw": 0,
+    "loss": 2
+   },
+   "score": {
+    "value": 0.0,
+    "k": 0,
+    "n": 4
+   },
+   "blundersPerGame": {
+    "opening": 0.5,
+    "middlegame": 0.5,
+    "endgame": 0.0,
+    "total": 1.0
+   },
+   "mistakesPerGame": {
+    "opening": 0.0,
+    "middlegame": 1.5,
+    "endgame": 0.0,
+    "total": 1.5
+   },
+   "inaccuraciesPerGame": {
+    "opening": 1.5,
+    "middlegame": 2.5,
+    "endgame": 0.0,
+    "total": 4.0
+   },
+   "errorsByPhase": {
+    "opening": 1,
+    "middlegame": 4,
+    "endgame": 0
+   },
+   "timePressureErrorShare": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "clockShareAtMove": {
+    "20": {
+     "value": null,
+     "n": 0
+    },
+    "30": {
+     "value": null,
+     "n": 0
+    },
+    "40": {
+     "value": null,
+     "n": 0
+    }
+   },
+   "conversionRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "saveRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "missedWins": {
+    "value": 0,
+    "n": 2
+   },
+   "acpl": {
+    "value": 63.5,
+    "n": 2
+   },
+   "accuracy": {
+    "value": 67.9,
+    "n": 2
+   },
+   "byOpening": []
+  }
+ },
+ "puzzles": {
+  "n": 0,
+  "winRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  },
+  "avgPuzzleRating": {
+   "value": null,
+   "n": 0
+  },
+  "themes": {}
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}

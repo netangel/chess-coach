@@ -1,0 +1,154 @@
+{
+ "week": "2023-W25",
+ "games": {
+  "correspondence": {
+   "n": 1,
+   "results": {
+    "win": 0,
+    "draw": 0,
+    "loss": 1
+   },
+   "score": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "blundersPerGame": {
+    "opening": 0.0,
+    "middlegame": 5.0,
+    "endgame": 0.0,
+    "total": 5.0
+   },
+   "mistakesPerGame": {
+    "opening": 0.0,
+    "middlegame": 1.0,
+    "endgame": 0.0,
+    "total": 1.0
+   },
+   "inaccuraciesPerGame": {
+    "opening": 2.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 2.0
+   },
+   "errorsByPhase": {
+    "opening": 0,
+    "middlegame": 6,
+    "endgame": 0
+   },
+   "timePressureErrorShare": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "clockShareAtMove": {
+    "20": {
+     "value": null,
+     "n": 0
+    },
+    "30": {
+     "value": null,
+     "n": 0
+    },
+    "40": {
+     "value": null,
+     "n": 0
+    }
+   },
+   "conversionRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "saveRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "missedWins": {
+    "value": 0,
+    "n": 1
+   },
+   "acpl": {
+    "value": 70.0,
+    "n": 1
+   },
+   "accuracy": {
+    "value": 69.8,
+    "n": 1
+   },
+   "byOpening": []
+  }
+ },
+ "puzzles": {
+  "n": 5,
+  "winRate": {
+   "value": 0.6,
+   "k": 3,
+   "n": 5
+  },
+  "avgPuzzleRating": {
+   "value": 1657.0,
+   "n": 5
+  },
+  "themes": {
+   "middlegame": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "crushing": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "short": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "advantage": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "endgame": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "skewer": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "long": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "veryLong": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "pin": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "bishopEndgame": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   }
+  }
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}

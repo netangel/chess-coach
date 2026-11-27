@@ -1,0 +1,103 @@
+{
+ "week": "2017-W12",
+ "games": {
+  "correspondence": {
+   "n": 1,
+   "results": {
+    "win": 0,
+    "draw": 0,
+    "loss": 1
+   },
+   "score": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "blundersPerGame": {
+    "opening": 2.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 2.0
+   },
+   "mistakesPerGame": {
+    "opening": 0.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 0.0
+   },
+   "inaccuraciesPerGame": {
+    "opening": 0.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 0.0
+   },
+   "errorsByPhase": {
+    "opening": 2,
+    "middlegame": 0,
+    "endgame": 0
+   },
+   "timePressureErrorShare": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "clockShareAtMove": {
+    "20": {
+     "value": null,
+     "n": 0
+    },
+    "30": {
+     "value": null,
+     "n": 0
+    },
+    "40": {
+     "value": null,
+     "n": 0
+    }
+   },
+   "conversionRate": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "saveRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "missedWins": {
+    "value": 0,
+    "n": 1
+   },
+   "acpl": {
+    "value": 94.0,
+    "n": 1
+   },
+   "accuracy": {
+    "value": 64.8,
+    "n": 1
+   },
+   "byOpening": []
+  }
+ },
+ "puzzles": {
+  "n": 0,
+  "winRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  },
+  "avgPuzzleRating": {
+   "value": null,
+   "n": 0
+  },
+  "themes": {}
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}

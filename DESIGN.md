@@ -237,6 +237,7 @@ dashboard:
 ### 7.3 Spaced repetition (`review.py`, `publish_study.py`)
 - Leitner boxes with intervals from config; new positions enter box 0 (due tomorrow).
 - Nightly: select due positions (≤ `max_due_per_day` × days until next run, ordered by `winDrop`), rebuild the review study: delete old chapters, import due positions as PGN chapters (`[FEN]`/`[SetUp]` headers, orientation = player colour, comment with game link and "find the best move"; solution as a variation hidden behind a comment or as a gamebook-style move).
+- *As built:* the study holds positions due within the next 7 days (≤ `max_due_per_day` × 7), one chapter per position in **gamebook** mode (find the engine's best move; the game move is a commented side line), imported one call per chapter so name and orientation are exact. Updates are incremental (kept positions keep their chapter ID, so links in the open check-in issue stay valid). The study is created by `study --init` (private; `shareable` must not be `nobody`, or even the owner cannot export it, and export is how chapter IDs are listed).
 - **Result feedback** (Lichess does not expose study practice results):
   v1 = weekly check-in **GitHub Issue** opened by `weekly.yml`, listing the week's positions as checkboxes ("solved" ticked = correct). On issue close, a workflow parses it into `reviews.jsonl`; correct → box+1, wrong → box 0. Unanswered = treated as not attempted (stay in box, re-due).
   Alternative to evaluate: reporting results in a Claude session, which writes `reviews.jsonl`.
@@ -249,6 +250,13 @@ Weekly and rolling-4-week aggregates per perf:
 
 ### 7.5 Diagnosis (`diagnose.py`)
 Rule-based, transparent scoring per taxonomy skill, combining normalized signals (e.g. theme win rate gap vs overall, share of errors in a phase vs expected, time-pressure share). Output ranked list with `score`, `confidence` (by sample size) and human-readable `evidence`. The diagnosis proposes; Claude decides the plan.
+
+Implemented rules (v1, each → score in [0,1], combined per skill by noisy-OR `1 − Π(1 − s)`):
+- puzzle theme gap: `(overall − theme win rate) / 0.25`, themes with n ≥ 10 only (low confidence below 30);
+- mistake tags: share of games with ≥ 1 critical position carrying the tag (`tactics.other` × 0.5; endgame-type tags are descriptive only);
+- conversion: `1 − conversion rate` (n ≥ 3 winning positions); time pressure: error share / 0.5 (n ≥ 5), clock at move 30;
+- opening-phase errors per game / 2; missed wins per game → `calculation.candidate-moves`.
+- Basis: non-correspondence games of the last 365 days if ≥ 5, else all analysed games; legacy correspondence games cap confidence at low.
 
 ---
 

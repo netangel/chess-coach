@@ -1,0 +1,90 @@
+{
+ "week": "2021-W41",
+ "games": {},
+ "puzzles": {
+  "n": 7,
+  "winRate": {
+   "value": 0.571,
+   "k": 4,
+   "n": 7
+  },
+  "avgPuzzleRating": {
+   "value": 1666.0,
+   "n": 7
+  },
+  "themes": {
+   "middlegame": {
+    "value": 0.6,
+    "k": 3,
+    "n": 5
+   },
+   "short": {
+    "value": 0.6,
+    "k": 3,
+    "n": 5
+   },
+   "fork": {
+    "value": 0.5,
+    "k": 2,
+    "n": 4
+   },
+   "crushing": {
+    "value": 0.5,
+    "k": 2,
+    "n": 4
+   },
+   "advantage": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "long": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "kingsideAttack": {
+    "value": 1.0,
+    "k": 2,
+    "n": 2
+   },
+   "master": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "endgame": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "discoveredAttack": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "masterVsMaster": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "deflection": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "mateIn2": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   }
+  }
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}

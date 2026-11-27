@@ -1,0 +1,65 @@
+{
+ "week": "2025-W01",
+ "games": {},
+ "puzzles": {
+  "n": 5,
+  "winRate": {
+   "value": 0.6,
+   "k": 3,
+   "n": 5
+  },
+  "avgPuzzleRating": {
+   "value": 1717.0,
+   "n": 5
+  },
+  "themes": {
+   "middlegame": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "short": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "advantage": {
+    "value": 1.0,
+    "k": 3,
+    "n": 3
+   },
+   "veryLong": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "endgame": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "mateIn2": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "quietMove": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "crushing": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   }
+  }
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}
