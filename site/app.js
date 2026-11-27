@@ -56,6 +56,19 @@ function taskItem({ title, minutes, url, note, count, steps }) {
 const RESULT_RU = { win: "победа", loss: "поражение", draw: "ничья" };
 const STATUS_RU = { mate: "мат", resign: "сдача", outoftime: "по времени", timeout: "соперник покинул игру", draw: "ничья", stalemate: "пат", aborted: "отменена" };
 
+const plural = (n, one, few, many) =>
+  n % 10 === 1 && n % 100 !== 11 ? one : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
+
+function analysisLine(a) {
+  if (!a) return "";
+  const parts = [
+    a.accuracy != null ? `точность ${Math.round(a.accuracy)}%` : null,
+    `${a.blunders} ${plural(a.blunders, "зевок", "зевка", "зевков")}`,
+    `${a.mistakes} ${plural(a.mistakes, "ошибка", "ошибки", "ошибок")}`,
+  ].filter(Boolean);
+  return `<p class="small">Анализ: ${esc(parts.join(" · "))}</p>`;
+}
+
 function renderLatest(d) {
   const g = d.latestGame;
   if (!g) { $("latest-body").innerHTML = `<p class="muted">Партий пока нет.</p>`; return; }
@@ -72,6 +85,7 @@ function renderLatest(d) {
     <p><b>${g.color === "white" ? "Белыми" : "Чёрными"} против ${opp}</b> — ${result}</p>
     <p class="small muted">${esc(meta)}</p>
     ${why ? `<p class="small muted">${why}</p>` : ""}
+    ${analysisLine(g.analysis)}
     <p class="small"><a href="${esc(safeUrl(g.url))}" target="_blank" rel="noopener">Открыть партию на Lichess →</a></p>`;
 }
 

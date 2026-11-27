@@ -104,7 +104,16 @@ def latest_game(cfg: Config) -> dict | None:
     winner = g.get("winner")
     result = "draw" if winner is None else ("win" if winner == color else "loss")
     clock = g.get("clock") or {}
-    analysed = analysis_path(g["id"]).exists()
+    apath = analysis_path(g["id"])
+    analysed = apath.exists()
+    analysis = None
+    if analysed:
+        summary = json.loads(apath.read_text(encoding="utf-8"))["summary"]
+        analysis = {
+            "accuracy": summary["accuracy"],
+            "blunders": summary["blunders"],
+            "mistakes": summary["mistakes"],
+        }
     not_analysed = None
     if not analysed:
         if g["perf"] not in cfg.analysis.only_perfs:
@@ -126,6 +135,7 @@ def latest_game(cfg: Config) -> dict | None:
         "result": result,
         "status": g.get("status"),
         "analysed": analysed,
+        "analysis": analysis,
         "notAnalysed": not_analysed,
     }
 

@@ -50,11 +50,12 @@ def test_latest_game(tmp_path, monkeypatch):
     monkeypatch.setattr(site, "GAMES_PATH", path)
     g = site.latest_game(load_config())
     assert g["id"] == "dJkzTqwS" and g["analysed"] and g["notAnalysed"] is None
+    assert g["analysis"] == {"accuracy": 48.2, "blunders": 9, "mistakes": 1}
     assert g["result"] == "loss" and g["color"] == "white"
     assert set(g) >= {"opponent", "date", "perf", "rated", "url", "status"}
     assert "moments" not in g and "summary" not in g
 
     path.write_text(json.dumps(one) + "\n" + json.dumps(short) + "\n")
     g = site.latest_game(load_config())
-    assert g["id"] == "lriJnjHt" and g["notAnalysed"] == "short"
+    assert g["id"] == "lriJnjHt" and g["notAnalysed"] == "short" and g["analysis"] is None
     assert g["opponent"] == "Ser-russ" and g["opponentRating"] == 1500
