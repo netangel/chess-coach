@@ -43,6 +43,7 @@ Sections:
 ## 4. Write the new plan
 
 1. Move the old plan: `git mv plan/current.md plan/history/<its week>.md` (its `week:` field).
+   If `plan/current.md` is already for next week (written early), don't archive it: revise it in place.
 2. Write `plan/current.md` for next week in the format from `CLAUDE.md`:
    - `week`: next ISO week; `focus`: 1–2 taxonomy keys
    - `daily` items each with `minutes` and an `https://` `url`, totalling ≤ the daily budget in `config.yaml`
