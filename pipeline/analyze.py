@@ -326,7 +326,14 @@ def cross_check(
         s = server[i]
         if "eval" not in s and "mate" not in s:
             continue
-        lichess_win = PositionEval(cp=s.get("eval"), mate=s.get("mate")).win_white()
+        if s.get("mate") == 0:
+            # Lichess scores a checkmated position as "mate 0", which doesn't say who is mated.
+            # Our eval for it comes from the board (terminal), so use that; skip if they disagree.
+            if evals[i + 1].terminal is None:
+                continue
+            lichess_win = evals[i + 1].win_white()
+        else:
+            lichess_win = PositionEval(cp=s.get("eval"), mate=s.get("mate")).win_white()
         diffs.append(abs(evals[i + 1].win_white() - lichess_win))
         if p.byPlayer:
             n += 1
