@@ -81,6 +81,27 @@ def test_build_analysis_classes_clock_and_summary():
     assert a.crossCheck is None
 
 
+def test_cross_check_handles_lichess_mate_zero_on_checkmate():
+    # Lichess server analysis scores the final, checkmated position as {"mate": 0}.
+    server = [
+        {"eval": 20},
+        {"eval": 25},
+        {"eval": 20},
+        {"eval": 30},
+        {"eval": -20},
+        {"mate": 1, "judgment": {"name": "Blunder"}},
+        {"mate": 0},
+    ]
+    board = chess.Board()
+    for san in GAME["moves"].split():
+        board.push_san(san)
+    game = {**GAME, "analysis": server}
+    a = analyze.build_analysis(game, [*EVALS, analyze.terminal_eval(board)], ENGINE, CFG)
+    assert a.crossCheck is not None
+    assert a.crossCheck.evalMaeWin < 5  # the mate-0 ply agrees: both say White won
+    assert a.crossCheck.lichess["blunder"] == 1
+
+
 def test_no_clock_is_never_time_pressure():
     game = {**GAME, "clock": None, "clocks": None}
     board = chess.Board()
