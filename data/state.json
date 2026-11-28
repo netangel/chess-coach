@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "games": {
-    "lastCreatedAt": 1741887517247,
-    "count": 21
+    "lastCreatedAt": 1795784523407,
+    "count": 22
   },
   "puzzles": {
-    "lastDate": 1737549944958,
-    "count": 27
+    "lastDate": 1795780581417,
+    "count": 35
   },
-  "ratingsFetchedAt": 1795769750618,
-  "lastSyncAt": 1795771202494,
+  "ratingsFetchedAt": 1795872696736,
+  "lastSyncAt": 1795872697173,
   "token": {
     "expiresAt": null,
     "scopes": [

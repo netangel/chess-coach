@@ -1,0 +1,214 @@
+{
+ "week": "2026-W48",
+ "games": {
+  "rapid": {
+   "n": 1,
+   "results": {
+    "win": 0,
+    "draw": 0,
+    "loss": 1
+   },
+   "score": {
+    "value": 0.0,
+    "k": 0,
+    "n": 2
+   },
+   "blundersPerGame": {
+    "opening": 2.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 2.0
+   },
+   "mistakesPerGame": {
+    "opening": 2.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 2.0
+   },
+   "inaccuraciesPerGame": {
+    "opening": 2.0,
+    "middlegame": 0.0,
+    "endgame": 0.0,
+    "total": 2.0
+   },
+   "errorsByPhase": {
+    "opening": 4,
+    "middlegame": 0,
+    "endgame": 0
+   },
+   "timePressureErrorShare": {
+    "value": 0.0,
+    "k": 0,
+    "n": 4
+   },
+   "clockShareAtMove": {
+    "20": {
+     "value": 0.543,
+     "n": 1
+    },
+    "30": {
+     "value": null,
+     "n": 0
+    },
+    "40": {
+     "value": null,
+     "n": 0
+    }
+   },
+   "conversionRate": {
+    "value": null,
+    "k": 0,
+    "n": 0
+   },
+   "saveRate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "missedWins": {
+    "value": 0,
+    "n": 1
+   },
+   "acpl": {
+    "value": 94.0,
+    "n": 1
+   },
+   "accuracy": {
+    "value": 74.4,
+    "n": 1
+   },
+   "byOpening": []
+  }
+ },
+ "puzzles": {
+  "n": 8,
+  "winRate": {
+   "value": 0.5,
+   "k": 4,
+   "n": 8
+  },
+  "avgPuzzleRating": {
+   "value": 1687.0,
+   "n": 8
+  },
+  "themes": {
+   "short": {
+    "value": 0.6,
+    "k": 3,
+    "n": 5
+   },
+   "middlegame": {
+    "value": 0.5,
+    "k": 2,
+    "n": 4
+   },
+   "endgame": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "advantage": {
+    "value": 0.667,
+    "k": 2,
+    "n": 3
+   },
+   "sacrifice": {
+    "value": 0.333,
+    "k": 1,
+    "n": 3
+   },
+   "long": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "crushing": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "discoveredAttack": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "mateIn2": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "attraction": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "fork": {
+    "value": 0.5,
+    "k": 1,
+    "n": 2
+   },
+   "collinearMove": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "operaMate": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "veryLong": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "kingsideAttack": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "mateIn4": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "exposedKing": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "master": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "opening": {
+    "value": 0.0,
+    "k": 0,
+    "n": 1
+   },
+   "deflection": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "rookEndgame": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   },
+   "pin": {
+    "value": 1.0,
+    "k": 1,
+    "n": 1
+   }
+  }
+ },
+ "reviews": {
+  "successRate": {
+   "value": null,
+   "k": 0,
+   "n": 0
+  }
+ }
+}
